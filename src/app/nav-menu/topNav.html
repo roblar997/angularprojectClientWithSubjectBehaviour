@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script src="./calculation.js"></script>
+  <script src="./newTexts.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- For integration tests through heroku -->
+  <script src="https://echo.loadmill.com/recorder.js?loadmill_code=eb32f5e5-41b5-4894-b0f0-1410a1d285fa"></script>
+
+</head>
+<body>
+  <!--[START] https://www.w3schools.com/bootstrap5/bootstrap_navbar.php-->
+  <nav class="navbar navbar-expand-sm bg-light navbar-light" style="background-color: darkseagreen !important; color: black !important;">
+    <div class="container-fluid" style="background-color: darkseagreen !important; color: black !important;">
+      <a class="navbar-brand" href="#" style=" font-size: 16px; background-color: darkseagreen; color: black ">Comment part of a text</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav" style="margin-left: 2px; ">
+          <li class="nav-item active">
+            <a class="nav-link  " [routerLink]="['/comment']"  style=" font-size: 16px; background-color: darkseagreen; color: black ">Comment text</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" [routerLink]="['/createtext']"  style="font-size: 16px; background-color: darkseagreen; color: black ">Create text</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" [routerLink]="['/deletetext']"  style="font-size: 16px; background-color: darkseagreen; color: black ">Delete text</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!--[END] https://www.w3schools.com/bootstrap5/bootstrap_navbar.php-->
+</body>
+</html>

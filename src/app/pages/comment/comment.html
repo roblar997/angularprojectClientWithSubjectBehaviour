@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script src="./calculation.js"></script>
+  <script src="./newTexts.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+
+  <main>
+
+
+
+    <div class="container">
+      <div>
+        <titlesearch [selectEnd]="selectEnd"
+                     [(selectStart)]="selectStart"
+                     [selectedText]="selectedText"
+                     [commandTidslinjeWrapper]="commandTidslinjeWrapper"
+                     [tidslinjerList]="tidslinjerList"
+                     [titleList]="titleList"
+                     [currentTitle]="currentTitle"
+                           [filteredtimelines]="filteredtimelines"
+                     (selectStartChange)="selectStartChange1($event)"
+                     (selectEndChange)="selectEndChange1($event)"
+                     (selectedTextChange)="selectedTextChange1($event)"
+                     (commandTidslinjeWrapperChange)="commandTidslinjeWrapperChange1($event)"
+                     (tidslinjerListChange)="tidslinjerListChange1($event)"
+                     (titleListChange)="titleListChange1($event)"
+                     (currentTitleChange)="titleChange1($event)"
+                     (filteredtimelinesChange)="filteredTimelineListChange1($event)"
+
+                     ></titlesearch>
+        <commentsearchinfo [selectEnd]="selectEnd"
+                           [selectStart]="selectStart"
+                           [selectedText]="selectedText"
+                           [commandTidslinjeWrapper]="commandTidslinjeWrapper"
+                           [tidslinjerList]="tidslinjerList"
+                           [titleList]="titleList"
+                           [currentTitle]="currentTitle"
+                                 [filteredtimelines]="filteredtimelines"
+                           (selectStartChange)="selectStartChange2($event)"
+                           (selectEndChange)="selectEndChange2($event)"
+                           (selectedTextChange)="selectedTextChange2($event)"
+                           (commandTidslinjeWrapperChange)="commandTidslinjeWrapperChange2($event)"
+                           (tidslinjerListChange)="tidslinjerListChange2($event)"
+                           (titleListChange)="titleListChange2($event)"
+                           (currentTitleChange)="titleChange2($event)"
+                            (filteredtimelinesChange)="filteredTimelineListChange2($event)"></commentsearchinfo>
+
+        <commentschema [selectEnd]="selectEnd"
+                       [(selectStart)]="selectStart"
+                       [selectedText]="selectedText"
+                       [commandTidslinjeWrapper]="commandTidslinjeWrapper"
+                       [tidslinjerList]="tidslinjerList"
+                       [titleList]="titleList"
+                       [currentTitle]="currentTitle"
+                             [filteredtimelines]="filteredtimelines"
+                       (selectStartChange)="selectStartChange3($event)"
+                       (selectEndChange)="selectEndChange3($event)"
+                       (selectedTextChange)="selectedTextChange3($event)"
+                       (commandTidslinjeWrapperChange)="commandTidslinjeWrapperChange3($event)"
+                       (tidslinjerListChange)="tidslinjerListChange3($event)"
+                       (titleListChange)="titleListChange3($event)"
+                          (currentTitleChange)="titleChange3($event)"
+                        (filteredtimelinesChange)="filteredTimelineListChange3($event)"></commentschema>
+        //
+      </div>
+
+      <commentlist [selectEnd]="selectEnd"
+                  [(selectStart)]="selectStart"
+                   [selectedText]="selectedText"
+                   [commandTidslinjeWrapper]="commandTidslinjeWrapper"
+                   [tidslinjerList]="tidslinjerList"
+                   [titleList]="titleList"
+                   [currentTitle]="currentTitle"
+                   [filteredtimelines]="filteredtimelines"
+                   (selectStartChange)="selectStartChange4($event)"
+                   (selectEndChange)="selectEndChange4($event)"
+                   (selectedTextChange)="selectedTextChange4($event)"
+                   (commandTidslinjeWrapperChange)="commandTidslinjeWrapperChange4($event)"
+                   (tidslinjerListChange)="tidslinjerListChange4($event)"
+                   (titleListChange)="titleListChange4($event)"
+                      (currentTitleChange)="titleChange4($event)"
+                    (filteredtimelinesChange)="filteredTimelineListChange4($event)"></commentlist>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { newTextCommunicationService } from './services/newTextCommunicationService';
+import { timelineCommunicationService } from './services/timelineCommunicationService';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angularprojectClientBehaviourSubj';
+  constructor(private _newTextCommunicationService: newTextCommunicationService,
+    private _timelineCommunicationService: timelineCommunicationService ) { }
 }

@@ -1,0 +1,40 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Change comment </h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="changeSchema">
+      <div class="form-group">
+        <label for="commentUser"> User: </label>
+        <input [(ngModel)]="tidslinjechange.user" formControlName="user" class="form-control input-sm w-50" id="commentUserChange" placeholder=" user" /><br>
+        <span style="color:red" *ngIf="this.changeSchema.controls['user'].status=='INVALID'">
+           Wrong input
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="commentComment"> Comment: </label>
+        <textarea [(ngModel)]="tidslinjechange.text" formControlName="text" class="form-control input-sm w-50" id="commentCommentChange" placeholder="Comment" rows="10">
+  </textarea>
+        <span style="color:red" *ngIf="this.changeSchema.controls['text'].status=='INVALID'"> Wrong input</span>
+      </div>
+
+      <div class="form-group">
+        <header> Do I like this part of text?</header>
+        <div>
+          <label for="likeYes">Like:</label> <input formControlName="likedislikeother" [(ngModel)]="tidslinjechange.likedislikeother" value="like" type="radio" id="likeYesChange" name="likedislikeother">  <br>
+          <label for="dislikeYes">Dislike:</label> <input formControlName="likedislikeother" [(ngModel)]="tidslinjechange.likedislikeother" value="dislike" type="radio" id="dislikeYesChange" name="likedislikeother"><br>
+          <label for="likeDislikeNo">Don't know:</label>  <input formControlName="likedislikeother" [(ngModel)]="tidslinjechange.likedislikeother" value="dontknow" type="radio" id="likeDislikeNoChange" name="likedislikeother" checked><br>
+          <span style="color:red" *ngIf="this.changeSchema.controls['likedislikeother'].status=='INVALID'"> Wrong input</span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+
+    <button type="button" [disabled]="this.changeSchema.controls['likedislikeother'].status=='INVALID' || this.changeSchema.controls['text'].status=='INVALID' || this.changeSchema.controls['user'].status=='INVALID'" class="btn btn-success" (click)="resultChange(); modal.close('ok')">Change</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.close('close')">Close</button>
+  </div>
+
+</div>
+

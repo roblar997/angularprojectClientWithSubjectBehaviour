@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+  <div>
+    <p class="h3" style="margin-top: 10px">Text titles </p>
+    <select #titleselectTitles style="width:150px; margin-top: 10px">
+      <option *ngFor="let tittel of titleList; let indexVal = index;" value='{{tittel}}'> {{tittel}}</option>";
+    </select>
+
+  </div>
+  <button (click)="loadText()" #btnGetText class="btn btn-success" style="margin-top:10px">Load text</button>
+  <input type="hidden" id="currentTitleId" value="-1" />
+</body>
+</html>
