@@ -13,7 +13,7 @@ import { Observable } from "rxjs/internal/Observable";
 import { of } from "rxjs";
 @Component({
   selector: "commentlist",
-  templateUrl: "commentlist.html"
+  templateUrl: "commentlist.html",
 })
 export class commentlistComponent implements OnChanges, OnInit {
   ngOnInit(): void {

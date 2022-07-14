@@ -16,18 +16,14 @@ import { timelineCommunicationService } from './services/timelineCommunicationSe
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { changeCommentModal } from './pages/comment/modal/changeCommentModal';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommentModule } from './pages/comment/commentModule';
 
 @NgModule({
   declarations: [
     AppComponent,
     topNavComponent,
-    commentComponent,
     createTextComponent,
     deleteTextComponent,
-    commentlistComponent,
-    commentSchemaComponent,
-    commentSearchInfoComponent,
-    titleSearchComponent,
     changeCommentModal
   ],
   imports: [
@@ -41,7 +37,8 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CommentModule
   ],
   providers: [newTextCommunicationService, timelineCommunicationService],
   bootstrap: [AppComponent],
