@@ -20,14 +20,14 @@ import { of, Subscription } from "rxjs";
 export class commentlistComponent implements OnChanges, OnInit {
 
   //States
-  selectStart: Number = new Number();
-  selectEnd: Number = new Number();
-  selectedText: String = new String();
-  commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
-  tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
-  filteredtimelines:Array<tidslinje> =Array<tidslinje>()
-  titleList: Array<String> = new Array<String>()
-  currentTitle: title = new title();
+  @Input('selectStart') selectStart: Number = new Number();
+  @Input('selectEnd') selectEnd: Number = new Number();
+  @Input('selectedText') selectedText: String = new String();
+  @Input('commandTidslinjeWrapper') commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
+  @Input('tidslinjerList') tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
+  @Input('filteredtimelines') filteredtimelines: Array<tidslinje> = Array<tidslinje>()
+  @Input('titleList') titleList: Array<String> = new Array<String>()
+  @Input('currentTitle') currentTitle: title = new title();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -80,11 +80,14 @@ export class commentlistComponent implements OnChanges, OnInit {
 
     });
   }
+  doCheck() {
+    console.log("DOING CHANGE")
+  }
   async ngOnChanges(changes: SimpleChanges) {
 
     for (let property in changes) {
 
-    
+   
       
     }
   }

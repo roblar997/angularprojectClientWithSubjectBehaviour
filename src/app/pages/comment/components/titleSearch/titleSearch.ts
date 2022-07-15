@@ -19,14 +19,14 @@ export class titleSearchComponent implements OnChanges, OnInit {
 
 
   //States
-  selectStart: Number = new Number();
-  selectEnd: Number = new Number();
-  selectedText: String = new String();
-  commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
-  tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
-  filteredtimelines: Array<tidslinje> = Array<tidslinje>()
-  titleList: Array<String> = new Array<String>()
-  currentTitle: title = new title();
+  @Input('selectStart') selectStart: Number = new Number();
+  @Input('selectEnd') selectEnd: Number = new Number();
+  @Input('selectedText') selectedText: String = new String();
+  @Input('commandTidslinjeWrapper') commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
+  @Input('tidslinjerList') tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
+  @Input('filteredtimelines') filteredtimelines: Array<tidslinje> = Array<tidslinje>()
+  @Input('titleList') titleList: Array<String> = new Array<String>()
+  @Input('currentTitle') currentTitle: title = new title();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -67,7 +67,7 @@ export class titleSearchComponent implements OnChanges, OnInit {
 
 
   async ngOnChanges(changes: SimpleChanges) {
-
+    console.log("CHANGE!!")
     for (let property in changes) {
       if(property == "selectStart")
         console.log("Child 1 detecting change. Value is now " + (changes[property].currentValue))
@@ -104,6 +104,8 @@ export class titleSearchComponent implements OnChanges, OnInit {
           //Broadcast change by sending notification to parrent, such that
     //parent can broadcast change
       this.changecurrenttitle();
+      this.cdref.markForCheck();
+     
     });
   }
 
