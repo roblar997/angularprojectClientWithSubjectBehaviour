@@ -57,6 +57,9 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.currentTitleSubscription?.unsubscribe()
   }
 
+  currentFenwick!: FenwFeatureTree;
+  countingList!: Observable<number[]>
+
   constructor(
     private cdref: ChangeDetectorRef, private timelineDataStorageService: timelineDataStorageService) { }
   ngAfterViewInit() {
@@ -119,7 +122,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
         this.countingList = of(await this.currentFenwick.getCountingList(0, this.currentTitle.text.length));
 
         //Send notification to parrent, such that one can broadcast this info to other childs
-        this.filteredTimelinesChangeFun();
+        this.changefilteredtimelines();
       }
  
        
@@ -182,7 +185,10 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     //Send notification to parrent, such that one can broadcast this info to other childs
     this.selectStartChangeFun();
     this.selectEndChangeFun();
-    this.filteredTimelinesChangeFun();
+    this.changefilteredtimelines();
+  }
+  changefilteredtimelines() {
+    this.timelineDataStorageService.changefilteredtimelines(this.tidslinjerList)
   }
 
   async filterListByTime(start: number, end: number, percent: Number) {
@@ -233,51 +239,26 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
 
     })
     if (this.commandTidslinjeWrapper != [])
-      this.tidslinjerListChangeFun();
+      this.changetidslinjerList();
 
 
   };
+  changetidslinjerList() {
+    this.timelineDataStorageService.changetidslinjerList(this.tidslinjerList)
+  }
+
   async percentChange() {
     console.log("Percent changed to:" + this.percent.nativeElement.value)
     this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
     this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
     this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
-    this.filteredTimelinesChangeFun();
+    this.changefilteredTimelines();
  
   }
-
-  //When choosen a title, send timelines here
-  //@Input('tidslinjerList') tidslinjerList: Array<tidslinje> = new Array<tidslinje>();
-  @Output() tidslinjerListChange: EventEmitter<Array<tidslinje>> = new EventEmitter<Array<tidslinje>>();
-
-  async tidslinjerListChangeFun() {
-    this.tidslinjerListChange.emit(this.tidslinjerList);
+  changefilteredTimelines() {
+    this.timelineDataStorageService.changefilteredtimelines(this.filteredtimelines)
   }
 
-  //When entering website, load all titles.
- // @Input('titleList') titleList: Array<String> = new Array<String>();
-  @Output() titleListChange: EventEmitter<Array<String>> = new EventEmitter<Array<String>>();
 
-  async titleListChangeFun() {
-    this.titleListChange.emit(this.titleList);
-  }
-  //Current title
-  //@Input('currentTitle') currentTitle: title = new title();
-  @Output() currentTitleChange: EventEmitter<title> = new EventEmitter<title>();
 
-  currentFenwick!: FenwFeatureTree;
-  countingList!: Observable<number[]>
-
-  async titleChangeFun() {
-
-    this.currentTitleChange.emit(this.currentTitle);
-  }
-
-  //Filtered timelines
- // @Input('filteredtimelines') filteredtimelines: Observable<Array<tidslinje>> = new Observable<Array<tidslinje>>();
-  @Output() filteredtimelinesChange: EventEmitter<Observable<Array<tidslinje>>> = new EventEmitter<Observable<Array<tidslinje>>>();
-
-  async filteredTimelinesChangeFun() {
-   // this.filteredtimelinesChange.emit(this.filteredtimelines  );
-  }
 }
