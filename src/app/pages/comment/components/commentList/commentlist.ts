@@ -11,16 +11,56 @@ import { newTextCommunicationService } from "../../../../services/newTextCommuni
 import { timelineCommunicationService } from "../../../../services/timelineCommunicationService";
 import { timelineDataStorageService } from "../../../comment/localServices/timelineDataStorageService";
 import { Observable } from "rxjs/internal/Observable";
-import { of } from "rxjs";
+import { of, Subscription } from "rxjs";
 @Component({
   selector: "commentlist",
   templateUrl: "commentlist.html",
 
 })
 export class commentlistComponent implements OnChanges, OnInit {
+
+  //States
+  selectStart: Number = new Number();
+  selectEnd: Number = new Number();
+  selectedText: String = new String();
+  commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
+  tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
+  filteredtimelines:Array<tidslinje> =Array<tidslinje>()
+  titleList: Array<String> = new Array<String>()
+  currentTitle: title = new title();
+
+  //Subscriptions
+  selectStartSubscription: Subscription | undefined;
+  selectEndSubscription: Subscription | undefined;
+  selectedTextSubscription: Subscription | undefined;
+  commandTidslinjeWrapperSubscription: Subscription | undefined;
+  tidslinjerListSubscription: Subscription | undefined;
+  filteredtimelinesSubscription: Subscription | undefined;
+  titleListSubscription: Subscription | undefined;
+  currentTitleSubscription: Subscription | undefined;
+
   ngOnInit(): void {
-    console.log()
+    this.selectStartSubscription = this.timelineDataStorageService.currentselectStart.subscribe(selectStart => this.selectStart = selectStart)
+    this.selectEndSubscription = this.timelineDataStorageService.currentselectEnd.subscribe(selectEnd => this.selectEnd = selectEnd)
+    this.selectedTextSubscription = this.timelineDataStorageService.currentselectedText.subscribe(selectedText => this.selectedText = selectedText)
+    this.commandTidslinjeWrapperSubscription = this.timelineDataStorageService.currentcommandTidslinjeWrapper.subscribe(commandTidslinjeWrapper => this.commandTidslinjeWrapper = commandTidslinjeWrapper)
+    this.tidslinjerListSubscription = this.timelineDataStorageService.currenttidslinjerList.subscribe(tidslinjerList => this.tidslinjerList = tidslinjerList)
+    this.filteredtimelinesSubscription = this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
+    this.titleListSubscription = this.timelineDataStorageService.currenttitleList.subscribe(titleList => this.titleList = titleList)
+    this.currentTitleSubscription = this.timelineDataStorageService.currentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
+
   }
+  ngOnDestroy() {
+    this.selectStartSubscription?.unsubscribe()
+    this.selectEndSubscription?.unsubscribe()
+    this.selectedTextSubscription?.unsubscribe()
+    this.commandTidslinjeWrapperSubscription?.unsubscribe()
+    this.tidslinjerListSubscription?.unsubscribe()
+    this.filteredtimelinesSubscription?.unsubscribe()
+    this.titleListSubscription?.unsubscribe()
+    this.currentTitleSubscription?.unsubscribe()
+  }
+
   constructor(private cdref: ChangeDetectorRef, private modalService: NgbModal, private newTextCommunicationService: newTextCommunicationService,
     private timelineDataStorageService: timelineDataStorageService, private timelineCommunicationService: timelineCommunicationService)  {
 
@@ -49,7 +89,7 @@ export class commentlistComponent implements OnChanges, OnInit {
     }
   }
   //Get change in start and end of selection of text
-  @Input('selectStart') selectStart: Number = new Number();
+  //@Input('selectStart') selectStart: Number = new Number();
   @Output() selectStartChange: EventEmitter<Number> = new EventEmitter<Number>();
 
   async selectStartChangeFun() {
@@ -150,7 +190,7 @@ export class commentlistComponent implements OnChanges, OnInit {
 
  
   }
-  @Input('selectEnd') selectEnd: Number = new Number();
+  //@Input('selectEnd') selectEnd: Number = new Number();
 
   @Output() selectEndChange: EventEmitter<Number> = new EventEmitter<Number>();
   async selectEndChangeFun() {
@@ -159,7 +199,7 @@ export class commentlistComponent implements OnChanges, OnInit {
 
 
   //Send selected text between child components
-  @Input('selectedText') selectedText: String = new String();
+  //@Input('selectedText') selectedText: String = new String();
   @Output() selectedTextChange: EventEmitter<String> = new EventEmitter<String>();
 
   async selectedTextChangeFun() {
@@ -168,7 +208,7 @@ export class commentlistComponent implements OnChanges, OnInit {
 
 
   //Changes from server conserning comments
-  @Input('commandTidslinjeWrapper') commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>();
+  //@Input('commandTidslinjeWrapper') commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>();
   @Output() commandTidslinjeWrapperChange: EventEmitter<Array<tidslinjeCommandWrapper>> = new EventEmitter<Array<tidslinjeCommandWrapper>>();
 
   async commandTidslinjeWrapperFun() {
@@ -177,7 +217,7 @@ export class commentlistComponent implements OnChanges, OnInit {
 
 
   //When choosen a title, send timelines here
-  @Input('tidslinjerList') tidslinjerList: Array<tidslinje> = new Array<tidslinje>();
+  //@Input('tidslinjerList') tidslinjerList: Array<tidslinje> = new Array<tidslinje>();
   @Output() tidslinjerListChange: EventEmitter<Array<tidslinje>> = new EventEmitter<Array<tidslinje>>();
 
   async tidslinjerListChangeFun() {
@@ -185,7 +225,7 @@ export class commentlistComponent implements OnChanges, OnInit {
   }
  
   //When entering website, load all titles.
-  @Input('titleList') titleList: Array<String> = new Array<String>();
+  //@Input('titleList') titleList: Array<String> = new Array<String>();
   @Output() titleListChange: EventEmitter<Array<String>> = new EventEmitter<Array<String>>();
 
   async titleListChangeFun() {
@@ -193,7 +233,7 @@ export class commentlistComponent implements OnChanges, OnInit {
   }
 
   //Current title
-  @Input('currentTitle') currentTitle: title = new title();
+  //@Input('currentTitle') currentTitle: title = new title();
   @Output() currentTitleChange: EventEmitter<title> = new EventEmitter<title>();
 
   async titleChangeFun() {
@@ -201,10 +241,10 @@ export class commentlistComponent implements OnChanges, OnInit {
   }
 
   //Filtered timelines
-  @Input('filteredtimelines') filteredtimelines: Observable<Array<tidslinje>> = new Observable<Array<tidslinje>>();
+  //  @Input('filteredtimelines') filteredtimelines: Observable<Array<tidslinje>> = new Observable<Array<tidslinje>>();
   @Output() filteredtimelinesChange: EventEmitter<Observable<Array<tidslinje>>> = new EventEmitter<Observable<Array<tidslinje>>>();
 
   async filteredTimelinesChangeFun() {
-    this.filteredtimelinesChange.emit(this.filteredtimelines);
+    //this.filteredtimelinesChange.emit(this.filteredtimelines);
   }
 }

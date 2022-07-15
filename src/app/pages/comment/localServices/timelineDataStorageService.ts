@@ -3,6 +3,7 @@ import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { CommentModule } from "../comment.module";
 import { tidslinjeCommandWrapper } from "../../../models/tidslinjeCommandWrapper";
 import { tidslinje } from "../../../models/tidslinje";
+import { title } from "../../../models/title";
 
 export class timelineDataStorageService {
 
@@ -58,10 +59,10 @@ export class timelineDataStorageService {
     this.titleList.next(titleList);
   }
 
-  currentTitle = new BehaviorSubject<String>("");
+  currentTitle = new BehaviorSubject<title>(new title());
   currentcurrentTitle = this.currentTitle.asObservable();
 
-  changecurrentTitle(currentTitle: String) {
+  changecurrentTitle(currentTitle: title) {
     this.currentTitle.next(currentTitle)
   }
 }
