@@ -9,18 +9,21 @@ import { FormsModule } from '@angular/forms';
 import { tidslinjeChangeForm } from "../../../../models/tidslinjeChangeForm";
 import { newTextCommunicationService } from "../../../../services/newTextCommunicationService";
 import { timelineCommunicationService } from "../../../../services/timelineCommunicationService";
+import { textDataStorageService } from "../../../comment/localServices/textDataStorageService";
+import { timelineDataStorageService } from "../../../comment/localServices/timelineDataStorageService";
 import { Observable } from "rxjs/internal/Observable";
 import { of } from "rxjs";
 @Component({
   selector: "commentlist",
   templateUrl: "commentlist.html",
+
 })
 export class commentlistComponent implements OnChanges, OnInit {
   ngOnInit(): void {
-
+    console.log(this.textDataStorageService.test())
   }
-  constructor(private cdref: ChangeDetectorRef, private modalService: NgbModal,private newTextCommunicationService: newTextCommunicationService,
-    private timelineCommunicationService: timelineCommunicationService)  {
+  constructor(private cdref: ChangeDetectorRef, private modalService: NgbModal, private newTextCommunicationService: newTextCommunicationService,private textDataStorageService : textDataStorageService,
+    private timelineDataStorageService: timelineDataStorageService, private timelineCommunicationService: timelineCommunicationService)  {
 
   }
   ngAfterViewInit() {

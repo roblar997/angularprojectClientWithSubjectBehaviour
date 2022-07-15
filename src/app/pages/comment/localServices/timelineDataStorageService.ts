@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
-import { CommentModule } from "../commentModule";
+import { CommentModule } from "../comment.module";
 
-@Injectable({
-  providedIn: CommentModule,
-})
+
 export class timelineDataStorageService {
 }

@@ -10,5 +10,6 @@ import { timelineCommunicationService } from './services/timelineCommunicationSe
 export class AppComponent {
   title = 'angularprojectClientBehaviourSubj';
   constructor(private _newTextCommunicationService: newTextCommunicationService,
-    private _timelineCommunicationService: timelineCommunicationService ) { }
+    private _timelineCommunicationService: timelineCommunicationService,
+  ) { }
 }

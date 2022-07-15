@@ -15,18 +15,25 @@ import { newTextCommunicationService } from '../../services/newTextCommunication
 import { timelineCommunicationService } from '../../services/timelineCommunicationService';
 import { textDataStorageService } from './localServices/textDataStorageService';
 import { timelineDataStorageService } from './localServices/timelineDataStorageService';
+import { AppModule } from '../../app.module';
 
 @NgModule({
+
   declarations: [commentlistComponent,
     commentSchemaComponent,
+    commentComponent,
     commentSearchInfoComponent,
-    titleSearchComponent, commentComponent],
+    titleSearchComponent],
   imports: [
+
+    RouterModule.forChild([{ path: '', component: commentComponent, pathMatch: 'full' },
+        { path: 'comment', component: commentComponent, pathMatch: 'full' }]),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CommonModule,
+    CommonModule
   ],
-  providers: [textDataStorageService, timelineDataStorageService],
+  exports: [RouterModule],
+  providers: [{ provide: textDataStorageService, useValue: new textDataStorageService() }, { provide: timelineDataStorageService, useValue: new timelineDataStorageService() }],
 })
 export class CommentModule { }

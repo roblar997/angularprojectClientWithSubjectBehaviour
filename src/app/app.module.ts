@@ -16,10 +16,13 @@ import { timelineCommunicationService } from './services/timelineCommunicationSe
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { changeCommentModal } from './pages/comment/modal/changeCommentModal';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommentModule } from './pages/comment/commentModule';
+import { CommentModule } from './pages/comment/comment.module';
+import { textDataStorageService } from './pages/comment/localServices/textDataStorageService';
+import { timelineDataStorageService } from './pages/comment/localServices/timelineDataStorageService';
 
 @NgModule({
   declarations: [
+
     AppComponent,
     topNavComponent,
     createTextComponent,
@@ -27,10 +30,11 @@ import { CommentModule } from './pages/comment/commentModule';
     changeCommentModal
   ],
   imports: [
+    CommentModule,
     BrowserModule,
     RouterModule.forRoot([
-    { path: '', component: commentComponent, pathMatch: 'full' },
-    { path: 'comment', component: commentComponent, pathMatch: 'full' },
+      { path: '', component: commentComponent, pathMatch: 'full' },
+      { path: 'comment', component: commentComponent, pathMatch: 'full' },
     { path: 'createtext', component: createTextComponent, pathMatch: 'full' },
     { path: 'deletetext', component: deleteTextComponent, pathMatch: 'full' }
     ]),
@@ -38,7 +42,7 @@ import { CommentModule } from './pages/comment/commentModule';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    CommentModule
+
   ],
   providers: [newTextCommunicationService, timelineCommunicationService],
   bootstrap: [AppComponent],
