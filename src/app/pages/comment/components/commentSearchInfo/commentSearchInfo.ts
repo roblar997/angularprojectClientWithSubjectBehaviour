@@ -130,42 +130,13 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   } 
   //Get change in start and end of selection of text
   //@Input('selectStart') selectStart: Number = new Number();
-  @Output() selectStartChange: EventEmitter<Number> = new EventEmitter<Number>();
+  //@Output() selectStartChange: EventEmitter<Number> = new EventEmitter<Number>();
 
   //Like and dislikes
   likes = 0;
   dislikes = 0;
 
 
-  async  selectStartChangeFun() {
-    this.selectStartChange.emit(this.selectStart);
-  }
-
-
-  //@Input('selectEnd') selectEnd: Number = new Number();
-
-  @Output() selectEndChange: EventEmitter<Number> = new EventEmitter<Number>();
-  async selectEndChangeFun() {
-    this.selectEndChange.emit(this.selectEnd);
-  }
-
-
-  //Send selected text between child components
-  //@Input('selectedText') selectedText: String = new String();
-  @Output() selectedTextChange: EventEmitter<String> = new EventEmitter<String>();
-
-  async selectedTextChangeFun() {
-    this.selectedTextChange.emit(this.selectedText.valueOf());
-  }
-
-
-  //Changes from server conserning comments
- // @Input('commandTidslinjeWrapper') commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>();
-  @Output() commandTidslinjeWrapperChange: EventEmitter<Array<tidslinjeCommandWrapper>> = new EventEmitter<Array<tidslinjeCommandWrapper>>();
-
-  async commandTidslinjeWrapperFun() {
-    this.commandTidslinjeWrapperChange.emit(this.commandTidslinjeWrapper);
-  }
 
   //ID'S in HTML
   @ViewChild("textToComment") textToComment!: ElementRef;
@@ -183,9 +154,16 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
 
     //Send notification to parrent, such that one can broadcast this info to other childs
-    this.selectStartChangeFun();
-    this.selectEndChangeFun();
+    this.changeSelectstart();
+    this.changeselectend();
     this.changefilteredtimelines();
+  }
+
+  changeSelectstart() {
+    this.timelineDataStorageService.changeselectStart(this.selectStart)
+  }
+  changeselectend() {
+    this.timelineDataStorageService.changeselectEnd(this.selectEnd)
   }
   changefilteredtimelines() {
     this.timelineDataStorageService.changefilteredtimelines(this.tidslinjerList)
