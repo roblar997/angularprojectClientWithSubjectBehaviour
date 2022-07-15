@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { tidslinjeChangeForm } from "../../../../models/tidslinjeChangeForm";
 import { newTextCommunicationService } from "../../../../services/newTextCommunicationService";
 import { timelineCommunicationService } from "../../../../services/timelineCommunicationService";
-import { textDataStorageService } from "../../../comment/localServices/textDataStorageService";
 import { timelineDataStorageService } from "../../../comment/localServices/timelineDataStorageService";
 import { Observable } from "rxjs/internal/Observable";
 import { of } from "rxjs";
@@ -20,9 +19,9 @@ import { of } from "rxjs";
 })
 export class commentlistComponent implements OnChanges, OnInit {
   ngOnInit(): void {
-    console.log(this.textDataStorageService.test())
+    console.log()
   }
-  constructor(private cdref: ChangeDetectorRef, private modalService: NgbModal, private newTextCommunicationService: newTextCommunicationService,private textDataStorageService : textDataStorageService,
+  constructor(private cdref: ChangeDetectorRef, private modalService: NgbModal, private newTextCommunicationService: newTextCommunicationService,
     private timelineDataStorageService: timelineDataStorageService, private timelineCommunicationService: timelineCommunicationService)  {
 
   }

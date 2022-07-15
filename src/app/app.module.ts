@@ -17,7 +17,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { changeCommentModal } from './pages/comment/modal/changeCommentModal';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommentModule } from './pages/comment/comment.module';
-import { textDataStorageService } from './pages/comment/localServices/textDataStorageService';
 import { timelineDataStorageService } from './pages/comment/localServices/timelineDataStorageService';
 
 @NgModule({

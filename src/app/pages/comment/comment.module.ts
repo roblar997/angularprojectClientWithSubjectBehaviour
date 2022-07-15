@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 import { commentComponent } from './comment';
 import { newTextCommunicationService } from '../../services/newTextCommunicationService';
 import { timelineCommunicationService } from '../../services/timelineCommunicationService';
-import { textDataStorageService } from './localServices/textDataStorageService';
 import { timelineDataStorageService } from './localServices/timelineDataStorageService';
 import { AppModule } from '../../app.module';
 
@@ -34,6 +33,6 @@ import { AppModule } from '../../app.module';
     CommonModule
   ],
   exports: [RouterModule],
-  providers: [{ provide: textDataStorageService, useValue: new textDataStorageService() }, { provide: timelineDataStorageService, useValue: new timelineDataStorageService() }],
+  providers: [ { provide: timelineDataStorageService, useValue: new timelineDataStorageService() }],
 })
 export class CommentModule { }
