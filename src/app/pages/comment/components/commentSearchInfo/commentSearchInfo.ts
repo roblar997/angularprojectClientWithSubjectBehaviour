@@ -63,7 +63,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   constructor(
     private cdref: ChangeDetectorRef, private timelineDataStorageService: timelineDataStorageService) { }
   ngAfterViewInit() {
-
+    
     Promise.resolve().then(() => this.cdref.detectChanges());
   }
   trackByIndex(index: number): number {
