@@ -27,76 +27,13 @@
 
     <div class="container">
       <div>
-        <titlesearch [selectEnd]="selectEnd"
-                     [(selectStart)]="selectStart"
-                     [selectedText]="selectedText"
-                     [commandTidslinjeWrapper]="commandTidslinjeWrapper"
-                     [tidslinjerList]="tidslinjerList"
-                     [titleList]="titleList"
-                     [currentTitle]="currentTitle"
-                           [filteredtimelines]="filteredtimelines"
-                     (selectStartChange)="selectStartChange1($event)"
-                     (selectEndChange)="selectEndChange1($event)"
-                     (selectedTextChange)="selectedTextChange1($event)"
-                     (commandTidslinjeWrapperChange)="commandTidslinjeWrapperChange1($event)"
-                     (tidslinjerListChange)="tidslinjerListChange1($event)"
-                     (titleListChange)="titleListChange1($event)"
-                     (currentTitleChange)="titleChange1($event)"
-                     (filteredtimelinesChange)="filteredTimelineListChange1($event)"
+        <titlesearch></titlesearch>
+        <commentsearchinfo ></commentsearchinfo>
 
-                     ></titlesearch>
-        <commentsearchinfo [selectEnd]="selectEnd"
-                           [selectStart]="selectStart"
-                           [selectedText]="selectedText"
-                           [commandTidslinjeWrapper]="commandTidslinjeWrapper"
-                           [tidslinjerList]="tidslinjerList"
-                           [titleList]="titleList"
-                           [currentTitle]="currentTitle"
-                                 [filteredtimelines]="filteredtimelines"
-                           (selectStartChange)="selectStartChange2($event)"
-                           (selectEndChange)="selectEndChange2($event)"
-                           (selectedTextChange)="selectedTextChange2($event)"
-                           (commandTidslinjeWrapperChange)="commandTidslinjeWrapperChange2($event)"
-                           (tidslinjerListChange)="tidslinjerListChange2($event)"
-                           (titleListChange)="titleListChange2($event)"
-                           (currentTitleChange)="titleChange2($event)"
-                            (filteredtimelinesChange)="filteredTimelineListChange2($event)"></commentsearchinfo>
-
-        <commentschema [selectEnd]="selectEnd"
-                       [(selectStart)]="selectStart"
-                       [selectedText]="selectedText"
-                       [commandTidslinjeWrapper]="commandTidslinjeWrapper"
-                       [tidslinjerList]="tidslinjerList"
-                       [titleList]="titleList"
-                       [currentTitle]="currentTitle"
-                             [filteredtimelines]="filteredtimelines"
-                       (selectStartChange)="selectStartChange3($event)"
-                       (selectEndChange)="selectEndChange3($event)"
-                       (selectedTextChange)="selectedTextChange3($event)"
-                       (commandTidslinjeWrapperChange)="commandTidslinjeWrapperChange3($event)"
-                       (tidslinjerListChange)="tidslinjerListChange3($event)"
-                       (titleListChange)="titleListChange3($event)"
-                          (currentTitleChange)="titleChange3($event)"
-                        (filteredtimelinesChange)="filteredTimelineListChange3($event)"></commentschema>
-        //
+        <commentschema></commentschema>
       </div>
 
-      <commentlist [selectEnd]="selectEnd"
-                  [(selectStart)]="selectStart"
-                   [selectedText]="selectedText"
-                   [commandTidslinjeWrapper]="commandTidslinjeWrapper"
-                   [tidslinjerList]="tidslinjerList"
-                   [titleList]="titleList"
-                   [currentTitle]="currentTitle"
-                   [filteredtimelines]="filteredtimelines"
-                   (selectStartChange)="selectStartChange4($event)"
-                   (selectEndChange)="selectEndChange4($event)"
-                   (selectedTextChange)="selectedTextChange4($event)"
-                   (commandTidslinjeWrapperChange)="commandTidslinjeWrapperChange4($event)"
-                   (tidslinjerListChange)="tidslinjerListChange4($event)"
-                   (titleListChange)="titleListChange4($event)"
-                      (currentTitleChange)="titleChange4($event)"
-                    (filteredtimelinesChange)="filteredTimelineListChange4($event)"></commentlist>
+      <commentlist></commentlist>
     </div>
   </main>
 

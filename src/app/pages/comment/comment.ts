@@ -39,111 +39,8 @@ export class commentComponent  implements OnInit {
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
 
-  async selectStartChange1(selectedStart : Number) {
-    console.log("Parent received number from child 1: " + selectedStart.valueOf());
 
-    this.selectStart = selectedStart.valueOf();
-    console.log("Parent changing this number to " + this.selectStart.valueOf())
   
-     
-  }
-  async selectStartChange2(selectedStart: Number) {
-    this.selectStart = selectedStart.valueOf();
-    console.log("Parrent detected change in selected start point, from child 2, in text selection")
-    console.log("Current start value is now: " + this.selectStart);
-
-  }
-  async selectStartChange3(selectedStart: Number) {
-    this.selectStart = selectedStart.valueOf();
-    console.log("Parrent detected change in selected start point, from child 2, in text selection")
-    console.log("Current start value is now: " + this.selectStart);
-
-  }
-  async selectStartChange4(selectedStart: Number) {
-    this.selectStart = selectedStart.valueOf();
-    console.log("Parrent detected change in selected start point, from child 2, in text selection")
-    console.log("Current start value is now: " + this.selectStart);
-
-  }
-
-  async selectEndChange1(selectedEnd : Number) {
-    this.selectEnd = selectedEnd.valueOf();
-  }
-  async selectEndChange2(selectedEnd: Number) {
-    this.selectEnd = selectedEnd.valueOf();
-    console.log("Parrent detected change in selected end point, from child 2, in text selection")
-    console.log("Current end value is now: " + this.selectEnd);
-  }
-  async selectEndChange3(selectedEnd: Number) {
-
-  }
-  async  selectEndChange4(selectedEnd: Number) {
-
-  }
-
-  async selectedTextChange1(selectedText: String) {
-
-  }
-  async selectedTextChange2(selectedText: String) {
-    console.log("Parent received text from child 2: " + selectedText.valueOf());
-
-    this.selectedText = selectedText.valueOf() + " parrent added this ";
-    console.log("Parent changing this text to " + this.selectedText.valueOf())
-
-  }
-  async selectedTextChange3(selectedText: String) {
-
-
-  }
-  async selectedTextChange4(selectedText: String) {
-
-  }
-
-  async  commandTidslinjeWrapperChange1(commandTidslinjeWrapper: Array<tidslinjeCommandWrapper>) {
-    this.commandTidslinjeWrapper = commandTidslinjeWrapper;
-  }
-  async  commandTidslinjeWrapperChange2(commandTidslinjeWrapper: Array<tidslinjeCommandWrapper>) {
-    this.commandTidslinjeWrapper = commandTidslinjeWrapper;
-  }
-  async commandTidslinjeWrapperChange3(commandTidslinjeWrapper: Array<tidslinjeCommandWrapper>) {
-    this.commandTidslinjeWrapper = commandTidslinjeWrapper;
-  }
-  async  commandTidslinjeWrapperChange4(commandTidslinjeWrapper : Array<tidslinjeCommandWrapper>) {
-    this.commandTidslinjeWrapper = commandTidslinjeWrapper;
-  }
-
-  async tidslinjerListChange1(tidslinjerList: Array<tidslinje>) {
-
-  }
-  async tidslinjerListChange2(tidslinjerList: Array<tidslinje>) {
-
-  }
-  async  tidslinjerListChange3(tidslinjerList: Array<tidslinje>) {
-
-  } 
-  async tidslinjerListChange4(tidslinjerList: Array<tidslinje>) {
-    console.log("Parrent detected change in tidslinjelist to " + JSON.stringify(tidslinjerList))
-
-    //Force detection by giving copy (change in refrence)
-    this.tidslinjerList = JSON.parse(JSON.stringify(tidslinjerList));
-  
-
-
-  }
-
-  async titleListChange1(titleList: Array<String>) {
-
-  }
-  async titleListChange2(titleList: Array<String>) {
-    console.log("Parrent detects, because of child 2, that we now have folowin timelines:")
-    console.log(JSON.stringify(titleList));
-  }
-  async titleListChange3(titleList: Array<String>) {
-
-  }
-  async titleListChange4(titleList: Array<String>) {
-
-  }
 
   async titleChange1(title: title) {
     this.currentTitle = title;
@@ -153,29 +50,5 @@ export class commentComponent  implements OnInit {
       this.tidslinjerList = res;
     
     });
-  }
-  async  titleChange2(title: title) {
-
-  }
-  async titleChange3(title: title) {
-
-  }
-  async  titleChange4(title: title) {
-
-  }
-
-  async filteredTimelineListChange1(tidslinjerList: Observable<Array<tidslinje>>) {
-
-  }
-  async filteredTimelineListChange2(tidslinjerList: Observable<Array<tidslinje>>) {
-    console.log("Parrent detected, because of child 2, that we now have these filtered timelines:")
-    console.log(JSON.stringify(tidslinjerList))
-    this.filteredtimelines = tidslinjerList
-  }
-  async filteredTimelineListChange3(tidslinjerList: Observable<Array<tidslinje>>) {
-
-  }
-  async filteredTimelineListChange4(tidslinjerList: Observable<Array<tidslinje>>) {
-
   }
 }
