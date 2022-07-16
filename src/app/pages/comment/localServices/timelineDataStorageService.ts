@@ -49,12 +49,13 @@ export class timelineDataStorageService {
   currenttidslinjerList = this.tidslinjerList.asObservable();
 
   changetidslinjerList(tidslinjerList: Array<tidslinje>) {
+
     this.tidslinjerList.next(tidslinjerList);
     if (this.currentTitle != undefined && this.currentTitle.getValue().text != undefined) {
       this.currentFenwick = new FenwFeatureTree(this.currentTitle.getValue().text.length);
     }
 
-    console.log("tidslinjer is now: " + JSON.stringify(this.tidslinjerList))
+
     this.tidslinjerList.getValue().forEach((x) => {
       if (x.start != undefined && x.end != undefined) {
         this.currentFenwick.addTimeline(x.start.valueOf(), x.end.valueOf())
