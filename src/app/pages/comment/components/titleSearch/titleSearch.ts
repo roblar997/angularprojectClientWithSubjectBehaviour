@@ -48,9 +48,9 @@ export class titleSearchComponent implements  OnInit {
     this.tidslinjerListSubscription = this.timelineDataStorageService.currenttidslinjerList.subscribe(tidslinjerList => this.tidslinjerList = tidslinjerList)
     this.filteredtimelinesSubscription = this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
     this.titleListSubscription = this.timelineDataStorageService.currenttitleList.subscribe(titleList => this.titleList = titleList)
-    this.currentTitleSubscription = this.timelineDataStorageService.currentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
-    this.countingListSubscription = this.timelineDataStorageService.countingList.subscribe(countingList => this.countingList = countingList)
-    this.percentSubscription = this.timelineDataStorageService.percent.subscribe(percent => this.percent = percent);
+    this.currentTitleSubscription = this.timelineDataStorageService.currentcurrentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
+    this.countingListSubscription = this.timelineDataStorageService.currentcountlingList.subscribe(countingList => this.countingList = countingList)
+    this.percentSubscription = this.timelineDataStorageService.currentpercent.subscribe(percent => this.percent = percent);
   }
   ngOnDestroy() {
     this.selectStartSubscription?.unsubscribe()
