@@ -110,7 +110,7 @@ export class timelineDataStorageService {
       //  console.log("Got command " + commandtidslinjen.command + " with timeline:" + JSON.stringify(commandtidslinjen.tidslinje))
       if (String(commandtidslinjen.command) == "ADD") {
         console.log("Supposed to do changes to timelines here. ADD ")
-        nytidslinjeListe.push(JSON.parse(JSON.stringify(commandtidslinjen.tidslinje)));
+        nytidslinjeListe.push(commandtidslinjen.tidslinje);
         if (commandtidslinjen.tidslinje && commandtidslinjen.tidslinje.start && commandtidslinjen.tidslinje.end)
           this.currentFenwick.addTimeline(commandtidslinjen.tidslinje.start.valueOf(), commandtidslinjen.tidslinje.end.valueOf())
         console.log("State of tidslinje array: " + JSON.stringify(this.tidslinjerList));

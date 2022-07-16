@@ -142,11 +142,10 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     console.log("Following area is selected (start,end): (" + this.selectStart + "," + this.selectEnd + ")")
     console.log("Percent picked up is:" + this.percentEle.nativeElement.value)
 
-    this.percent = this.percentEle.nativeElement.value.valueOf();
     this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value.valueOf());
     this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
     this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
-
+    this.percent = this.percentEle.nativeElement.value.valueOf();
 
     //Send notification to parrent, such that one can broadcast this info to other childs
     this.changeSelectstart();
