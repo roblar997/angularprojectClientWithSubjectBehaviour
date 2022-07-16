@@ -58,7 +58,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.currentTitleSubscription?.unsubscribe()
   }
 
-  currentFenwick!: FenwFeatureTree;
+
   countingList!: Observable<number[]>
 
   constructor(
@@ -90,25 +90,13 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   async ngOnChanges(changes: SimpleChanges) {
 
     for (let property in changes) {
-      if (property == "selectedText")
-        console.log("Child 2 detecting change. Value is now " + (changes[property].currentValue))
-     
-      else if (property == "tidslinjerList") {
+       if (property == "tidslinjerList") {
 
         this.likes = 0
         this.dislikes = 0
-        if (this.currentTitle != undefined && this.currentTitle.text != undefined) {
-          this.currentFenwick = new FenwFeatureTree(this.currentTitle.text.length);
-        }
+ 
 
-        console.log("tidslinjer is now: " + JSON.stringify(this.tidslinjerList))
-        this.tidslinjerList.forEach((x) => {
-          if (x.start != undefined && x.end != undefined) {
-            this.currentFenwick.addTimeline(x.start.valueOf(), x.end.valueOf())
-          }
-        })
-
-        this.countingList = of(await this.currentFenwick.getCountingList(0, this.currentTitle.text.length));
+       // this.countingList = of(await this.currentFenwick.getCountingList(0, this.currentTitle.text.length));
         console.log("Have following counting list: " + this.countingList);
       }
 
@@ -120,7 +108,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
         this.dislikes = await  this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
 
         //Recalculate counting list
-        this.countingList = of(await this.currentFenwick.getCountingList(0, this.currentTitle.text.length));
+      //  this.countingList = of(await this.currentFenwick.getCountingList(0, this.currentTitle.text.length));
 
         //Send notification to parrent, such that one can broadcast this info to other childs
         this.changefilteredtimelines();

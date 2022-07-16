@@ -5,10 +5,13 @@ import { tidslinjeCommandWrapper } from "../../../models/tidslinjeCommandWrapper
 import { tidslinje } from "../../../models/tidslinje";
 import { title } from "../../../models/title";
 import { ReplaySubject } from "rxjs";
+import { FenwFeatureTree } from "../../../structureClasses/FenwFeatureTree";
 
 export class timelineDataStorageService {
 
-  selectStart = new ReplaySubject<Number>();
+  currentFenwick!: FenwFeatureTree;
+
+  selectStart = new BehaviorSubject<Number>(0);
   currentselectStart = this.selectStart.asObservable();
 
   changeselectStart(selectStart: Number) {
@@ -16,7 +19,7 @@ export class timelineDataStorageService {
   }
 
 
-  selectEnd = new ReplaySubject<Number>();
+  selectEnd = new BehaviorSubject<Number>(0);
   currentselectEnd = this.selectEnd.asObservable();
 
   changeselectEnd(selectEnd: Number) {
@@ -34,7 +37,7 @@ export class timelineDataStorageService {
     this.selectedText.next(selectedText)
   }
 
-  commandTidslinjeWrapper = new ReplaySubject<Array<tidslinjeCommandWrapper>>(1)
+  commandTidslinjeWrapper = new BehaviorSubject<Array<tidslinjeCommandWrapper>>([])
   currentcommandTidslinjeWrapper = this.commandTidslinjeWrapper.asObservable();
 
   changecommandTidslinjeWrapper(commandTidslinjeWrapper: Array<tidslinjeCommandWrapper>) {
@@ -47,6 +50,16 @@ export class timelineDataStorageService {
 
   changetidslinjerList(tidslinjerList: Array<tidslinje>) {
     this.tidslinjerList.next(tidslinjerList);
+    if (this.currentTitle != undefined && this.currentTitle.getValue().text != undefined) {
+      this.currentFenwick = new FenwFeatureTree(this.currentTitle.getValue().text.length);
+    }
+
+    console.log("tidslinjer is now: " + JSON.stringify(this.tidslinjerList))
+    this.tidslinjerList.getValue().forEach((x) => {
+      if (x.start != undefined && x.end != undefined) {
+        this.currentFenwick.addTimeline(x.start.valueOf(), x.end.valueOf())
+      }
+    })
   }
 
   filteredtimelines = new ReplaySubject<Array<tidslinje>>(1);
@@ -62,8 +75,8 @@ export class timelineDataStorageService {
   changetitleList(titleList: Array<String>) {
     this.titleList.next(titleList);
   }
-
-  currentTitle = new ReplaySubject<title>(1);
+  
+  currentTitle = new BehaviorSubject<title>(new title());
   currentcurrentTitle = this.currentTitle.asObservable();
 
   changecurrentTitle(currentTitle: title) {
@@ -72,15 +85,15 @@ export class timelineDataStorageService {
   doChange() {
     let nytidslinjeListe: tidslinje[] = this.tidslinjerList.getValue();
 
-    this.commandTidslinjeWrapper.subscribe((x) => x.forEach((commandtidslinjen) => {
+    this.commandTidslinjeWrapper.getValue().forEach((commandtidslinjen) => {
 
 
       //  console.log("Got command " + commandtidslinjen.command + " with timeline:" + JSON.stringify(commandtidslinjen.tidslinje))
       if (String(commandtidslinjen.command) == "ADD") {
         console.log("Supposed to do changes to timelines here. ADD ")
         nytidslinjeListe.push(JSON.parse(JSON.stringify(commandtidslinjen.tidslinje)));
-        // if (commandtidslinjen.tidslinje && commandtidslinjen.tidslinje.start && commandtidslinjen.tidslinje.end)
-        //   this.currentFenwick.addTimeline(commandtidslinjen.tidslinje.start.valueOf(), commandtidslinjen.tidslinje.end.valueOf())
+        if (commandtidslinjen.tidslinje && commandtidslinjen.tidslinje.start && commandtidslinjen.tidslinje.end)
+          this.currentFenwick.addTimeline(commandtidslinjen.tidslinje.start.valueOf(), commandtidslinjen.tidslinje.end.valueOf())
         console.log("State of tidslinje array: " + JSON.stringify(this.tidslinjerList));
         //Notify change to parrent, such that everyone now that we have a new tidslinje
 
@@ -100,14 +113,14 @@ export class timelineDataStorageService {
 
         nytidslinjeListe.splice(index, 1)
         console.log("Supposed to do changes to timelines here. REMOVE ")
-        // if (commandtidslinjen.tidslinje && commandtidslinjen.tidslinje.start && commandtidslinjen.tidslinje.end)
-        //   this.currentFenwick.removeTimeline(commandtidslinjen.tidslinje.start.valueOf(), commandtidslinjen.tidslinje.end.valueOf())
+        if (commandtidslinjen.tidslinje && commandtidslinjen.tidslinje.start && commandtidslinjen.tidslinje.end)
+         this.currentFenwick.removeTimeline(commandtidslinjen.tidslinje.start.valueOf(), commandtidslinjen.tidslinje.end.valueOf())
 
 
 
       }
 
-    }))
+    })
     //change to a updated version
     this.changetidslinjerList(nytidslinjeListe);
   }
