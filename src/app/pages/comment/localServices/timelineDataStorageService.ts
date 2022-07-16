@@ -61,6 +61,7 @@ export class timelineDataStorageService {
     this.tidslinjerList.next(tidslinjerList);
     if (this.currentTitle != undefined && this.currentTitle.getValue().text != undefined) {
       this.currentFenwick = new FenwFeatureTree(this.currentTitle.getValue().text.length);
+
     }
 
 
@@ -114,7 +115,7 @@ export class timelineDataStorageService {
         nytidslinjeListe.push(tidslinjen);
         if (commandtidslinjen.tidslinje && commandtidslinjen.tidslinje.start && commandtidslinjen.tidslinje.end)
           this.currentFenwick.addTimeline(commandtidslinjen.tidslinje.start.valueOf(), commandtidslinjen.tidslinje.end.valueOf())
-  
+
         //Notify change to parrent, such that everyone now that we have a new tidslinje
 
 
@@ -122,14 +123,14 @@ export class timelineDataStorageService {
       else if (String(commandtidslinjen.command) == "CHANGE") {
 
         console.log("Supposed to do changes to timelines here. CHANGE ")
-        let index = nytidslinjeListe.findIndex((x) => { return x.id == commandtidslinjen.tidslinje.id })
+        let index = nytidslinjeListe.findIndex((x) => { return x.id.valueOf() == commandtidslinjen.tidslinje.id.valueOf() })
         nytidslinjeListe.splice(index, 1, commandtidslinjen.tidslinje)
 
         // console.log("State of tidslinje array: " + JSON.stringify(this.tidslinjerList));
 
       }
       else if (String(commandtidslinjen.command) == "REMOVE") {
-        let index = nytidslinjeListe.findIndex((x) => { return x.id == commandtidslinjen.tidslinje.id })
+        let index = nytidslinjeListe.findIndex((x) => { return x.id.valueOf() == commandtidslinjen.tidslinje.id.valueOf() })
 
         nytidslinjeListe.splice(index, 1)
         console.log("Supposed to do changes to timelines here. REMOVE ")
