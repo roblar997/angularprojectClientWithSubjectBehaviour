@@ -19,14 +19,15 @@ export class titleSearchComponent implements OnChanges, OnInit {
 
 
   //States
-  @Input('selectStart') selectStart: Number = new Number();
-  @Input('selectEnd') selectEnd: Number = new Number();
-  @Input('selectedText') selectedText: String = new String();
-  @Input('commandTidslinjeWrapper') commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
-  @Input('tidslinjerList') tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
-  @Input('filteredtimelines') filteredtimelines: Array<tidslinje> = Array<tidslinje>()
-  @Input('titleList') titleList: Array<String> = new Array<String>()
-  @Input('currentTitle') currentTitle: title = new title();
+  selectStart: Number = new Number();
+  selectEnd: Number = new Number();
+  selectedText: String = new String();
+  commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
+  tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
+  filteredtimelines: Array<tidslinje> = Array<tidslinje>()
+  titleList: Array<String> = new Array<String>()
+  currentTitle: title = new title();
+
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -67,24 +68,7 @@ export class titleSearchComponent implements OnChanges, OnInit {
 
 
   async ngOnChanges(changes: SimpleChanges) {
-    console.log("CHANGE!!")
-    for (let property in changes) {
-      if(property == "selectStart")
-        console.log("Child 1 detecting change. Value is now " + (changes[property].currentValue))
 
-      else if (property == "titleList") {
-        console.log("Child 1 detecting change. Have a title list equal to" + (changes[property].currentValue))
-
-      }
-      if (property == "tidslinjerList") {
-        console.log("change in list")
-        this.changeselectStart()
-      }
-      else if (property == "currentTitle") {
-        console.log("Child 1 detecting change. Have a title list equal to" + (changes[property].currentValue))
-
-      }
-    }
  
   }
   changeselectStart() {
@@ -104,11 +88,17 @@ export class titleSearchComponent implements OnChanges, OnInit {
           //Broadcast change by sending notification to parrent, such that
     //parent can broadcast change
       this.changecurrenttitle();
-      this.cdref.markForCheck();
+      this.timelineCommunicationService.getInitPState(this.currentTitle.id).subscribe((res) => {
+        this.tidslinjerList = res;
+        this.changetidslinjelist();
+
+      });
      
     });
   }
-
+  changetidslinjelist() {
+    this.timelineDataStorageService.changetidslinjerList(this.tidslinjerList)
+  }
   changecurrenttitle() {
     this.timelineDataStorageService.changecurrentTitle(this.currentTitle)
   }
