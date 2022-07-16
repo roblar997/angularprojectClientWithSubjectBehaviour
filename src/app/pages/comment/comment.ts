@@ -15,9 +15,9 @@ import { timelineDataStorageService } from "../comment/localServices/timelineDat
   templateUrl: "comment.html"
 })
 export class commentComponent  implements OnInit {
-  cdf: ChangeDetectorRef;
+
   constructor(private newTextCommunicationService: newTextCommunicationService, private timelineDataStorageService: timelineDataStorageService,
-    private timelineCommunicationService: timelineCommunicationService, cdf: ChangeDetectorRef) { this.cdf = cdf; }
+    private timelineCommunicationService: timelineCommunicationService) {  }
 
 
    selectStart: Number = new Number();

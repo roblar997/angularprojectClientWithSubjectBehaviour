@@ -12,7 +12,7 @@ import { timelineDataStorageService } from "../../../comment/localServices/timel
   selector: "commentschema",
   templateUrl: "commentSchema.html"
 })
-export class commentSchemaComponent implements OnChanges, OnInit {
+export class commentSchemaComponent implements  OnInit {
 
   //States
   selectStart: Number = new Number();
@@ -68,17 +68,7 @@ export class commentSchemaComponent implements OnChanges, OnInit {
       likedislikeother: ["", Validators.required]
     });
   }
-  ngAfterViewInit() {
 
-    Promise.resolve().then(() => this.cdref.detectChanges());
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-
-    for (let property in changes) {
-
-    }
-  }
 
   async addNewComment() {
     if (this.commentSchema.valid && this.selectStart != undefined && this.selectEnd != undefined) {

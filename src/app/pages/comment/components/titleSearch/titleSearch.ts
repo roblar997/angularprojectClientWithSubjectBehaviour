@@ -12,7 +12,7 @@ import { Observable, Subscription } from "rxjs";
   selector: "titlesearch",
   templateUrl: "titleSearch.html"
 })
-export class titleSearchComponent implements OnChanges, OnInit {
+export class titleSearchComponent implements  OnInit {
   constructor(
     private cdref: ChangeDetectorRef,private newTextCommunicationService: newTextCommunicationService,
     private timelineCommunicationService: timelineCommunicationService, private timelineDataStorageService: timelineDataStorageService) { }
@@ -61,16 +61,7 @@ export class titleSearchComponent implements OnChanges, OnInit {
     this.currentTitleSubscription?.unsubscribe()
   }
 
-  async ngAfterViewInit() {
- 
-    Promise.resolve().then(() => this.cdref.detectChanges());
-  }
 
-
-  async ngOnChanges(changes: SimpleChanges) {
-
- 
-  }
   changeselectStart() {
     this.timelineDataStorageService.changeselectStart(this.selectStart)
   }
