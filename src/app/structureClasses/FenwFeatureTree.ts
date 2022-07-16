@@ -67,13 +67,13 @@ export class FenwFeatureTree {
     this.update(end + 1, 1);
   }
 
-  async getCountingList(start: number, stop: number) {
+   getCountingList(start: number, stop: number) {
     let res: Array<Promise<number>> = new Array<Promise<number>>();
 
     for (let i = start; i <= stop; i++) {
       res.push(this.query(i))
     }
-     return await Promise.all(res);
+     return  Promise.all(res);
   }
 
 

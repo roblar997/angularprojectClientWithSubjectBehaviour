@@ -28,6 +28,14 @@ export class timelineDataStorageService {
 
   }
 
+  countingList = new BehaviorSubject<Array<Number>>([]);
+  currentcountlingList = this.countingList.asObservable();
+
+  changecountingList(countingList: Array<Number>) {
+    this.countingList.next(countingList)
+
+
+  }
 
 
   selectedText = new ReplaySubject<String>(1);
@@ -61,6 +69,9 @@ export class timelineDataStorageService {
         this.currentFenwick.addTimeline(x.start.valueOf(), x.end.valueOf())
       }
     })
+    this.currentFenwick.getCountingList(0, this.currentTitle.getValue().text.length).then((res) => {
+      this.countingList.next(res);
+    });
   }
 
   filteredtimelines = new ReplaySubject<Array<tidslinje>>(1);

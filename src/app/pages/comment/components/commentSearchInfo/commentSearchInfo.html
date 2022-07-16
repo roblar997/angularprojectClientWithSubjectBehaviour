@@ -41,7 +41,7 @@
     <p class="h3" style="margin-top: 10px">Color map of comment density </p>
     <div id="textDensityMap" style="overflow-y: auto; width:320px; height:320px; margin-top: 10px" readonly>
 
-      <span *ngFor="let value of countingList | async; trackBy:trackByIndex; let indexVal = index">
+      <span *ngFor="let value of countingList; let indexVal = index">
         <span *ngIf="value.valueOf() >= 32" style='background-color:red'>{{currentTitle.text[indexVal]}}</span>
         <span *ngIf="value.valueOf() >= 16 && value.valueOf() < 32" style='background-color: yellow'>{{currentTitle.text[indexVal]}}</span>
         <span *ngIf="value.valueOf() >= 8  && value.valueOf() < 16" style='background-color: lightyellow'>{{currentTitle.text[indexVal]}}</span>

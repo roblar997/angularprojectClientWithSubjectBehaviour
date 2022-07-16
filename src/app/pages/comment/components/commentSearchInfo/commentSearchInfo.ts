@@ -23,7 +23,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   filteredtimelines: Array<tidslinje> = Array<tidslinje>()
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
-
+  countingList: Array<Number> = new Array<Number>();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -34,6 +34,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   filteredtimelinesSubscription: Subscription | undefined;
   titleListSubscription: Subscription | undefined;
   currentTitleSubscription: Subscription | undefined;
+  countingListSubscription: Subscription | undefined;
 
   ngOnInit(): void {
 
@@ -45,7 +46,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.filteredtimelinesSubscription = this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
     this.titleListSubscription = this.timelineDataStorageService.currenttitleList.subscribe(titleList => this.titleList = titleList)
     this.currentTitleSubscription = this.timelineDataStorageService.currentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
-
+    this.countingListSubscription = this.timelineDataStorageService.countingList.subscribe(countingList => this.countingList = countingList)
   }
   ngOnDestroy() {
     this.selectStartSubscription?.unsubscribe()
@@ -56,10 +57,11 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.filteredtimelinesSubscription?.unsubscribe()
     this.titleListSubscription?.unsubscribe()
     this.currentTitleSubscription?.unsubscribe()
+    this.countingListSubscription?.unsubscribe()
   }
 
 
-  countingList!: Observable<number[]>
+
 
   constructor(
     private cdref: ChangeDetectorRef, private timelineDataStorageService: timelineDataStorageService) { }
@@ -96,7 +98,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
         this.dislikes = 0
  
 
-       // this.countingList = of(await this.currentFenwick.getCountingList(0, this.currentTitle.text.length));
+       
         console.log("Have following counting list: " + this.countingList);
       }
 

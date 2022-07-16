@@ -20,14 +20,17 @@ import { of, Subscription } from "rxjs";
 export class commentlistComponent implements OnChanges, OnInit {
 
   //States
-   selectStart: Number = new Number();
-   selectEnd: Number = new Number();
-   selectedText: String = new String();
-   commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
-   tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
-   filteredtimelines: Array<tidslinje> = Array<tidslinje>()
-   titleList: Array<String> = new Array<String>()
-   currentTitle: title = new title();
+
+  //States
+  selectStart: Number = new Number();
+  selectEnd: Number = new Number();
+  selectedText: String = new String();
+  commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
+  tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
+  filteredtimelines: Array<tidslinje> = Array<tidslinje>()
+  titleList: Array<String> = new Array<String>()
+  currentTitle: title = new title();
+  countingList: Array<Number> = new Array<Number>();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -38,8 +41,10 @@ export class commentlistComponent implements OnChanges, OnInit {
   filteredtimelinesSubscription: Subscription | undefined;
   titleListSubscription: Subscription | undefined;
   currentTitleSubscription: Subscription | undefined;
+  countingListSubscription: Subscription | undefined;
 
   ngOnInit(): void {
+
     this.selectStartSubscription = this.timelineDataStorageService.currentselectStart.subscribe(selectStart => this.selectStart = selectStart)
     this.selectEndSubscription = this.timelineDataStorageService.currentselectEnd.subscribe(selectEnd => this.selectEnd = selectEnd)
     this.selectedTextSubscription = this.timelineDataStorageService.currentselectedText.subscribe(selectedText => this.selectedText = selectedText)
@@ -48,7 +53,7 @@ export class commentlistComponent implements OnChanges, OnInit {
     this.filteredtimelinesSubscription = this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
     this.titleListSubscription = this.timelineDataStorageService.currenttitleList.subscribe(titleList => this.titleList = titleList)
     this.currentTitleSubscription = this.timelineDataStorageService.currentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
-
+    this.countingListSubscription = this.timelineDataStorageService.countingList.subscribe(countingList => this.countingList = countingList)
   }
   ngOnDestroy() {
     this.selectStartSubscription?.unsubscribe()
@@ -59,6 +64,7 @@ export class commentlistComponent implements OnChanges, OnInit {
     this.filteredtimelinesSubscription?.unsubscribe()
     this.titleListSubscription?.unsubscribe()
     this.currentTitleSubscription?.unsubscribe()
+    this.countingListSubscription?.unsubscribe()
   }
 
   constructor(private cdref: ChangeDetectorRef, private modalService: NgbModal, private newTextCommunicationService: newTextCommunicationService,

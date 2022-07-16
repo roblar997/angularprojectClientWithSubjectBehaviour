@@ -15,6 +15,8 @@ import { timelineDataStorageService } from "../../../comment/localServices/timel
 export class commentSchemaComponent implements  OnInit {
 
   //States
+
+  //States
   selectStart: Number = new Number();
   selectEnd: Number = new Number();
   selectedText: String = new String();
@@ -23,7 +25,7 @@ export class commentSchemaComponent implements  OnInit {
   filteredtimelines: Array<tidslinje> = Array<tidslinje>()
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
-
+  countingList: Array<Number> = new Array<Number>();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -34,8 +36,10 @@ export class commentSchemaComponent implements  OnInit {
   filteredtimelinesSubscription: Subscription | undefined;
   titleListSubscription: Subscription | undefined;
   currentTitleSubscription: Subscription | undefined;
+  countingListSubscription: Subscription | undefined;
 
   ngOnInit(): void {
+
     this.selectStartSubscription = this.timelineDataStorageService.currentselectStart.subscribe(selectStart => this.selectStart = selectStart)
     this.selectEndSubscription = this.timelineDataStorageService.currentselectEnd.subscribe(selectEnd => this.selectEnd = selectEnd)
     this.selectedTextSubscription = this.timelineDataStorageService.currentselectedText.subscribe(selectedText => this.selectedText = selectedText)
@@ -44,7 +48,7 @@ export class commentSchemaComponent implements  OnInit {
     this.filteredtimelinesSubscription = this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
     this.titleListSubscription = this.timelineDataStorageService.currenttitleList.subscribe(titleList => this.titleList = titleList)
     this.currentTitleSubscription = this.timelineDataStorageService.currentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
-
+    this.countingListSubscription = this.timelineDataStorageService.countingList.subscribe(countingList => this.countingList = countingList)
   }
   ngOnDestroy() {
     this.selectStartSubscription?.unsubscribe()
@@ -55,9 +59,8 @@ export class commentSchemaComponent implements  OnInit {
     this.filteredtimelinesSubscription?.unsubscribe()
     this.titleListSubscription?.unsubscribe()
     this.currentTitleSubscription?.unsubscribe()
+    this.countingListSubscription?.unsubscribe()
   }
-
-
   commentSchema: FormGroup;
   constructor(
     private cdref: ChangeDetectorRef, private fb: FormBuilder,private newTextCommunicationService: newTextCommunicationService,
