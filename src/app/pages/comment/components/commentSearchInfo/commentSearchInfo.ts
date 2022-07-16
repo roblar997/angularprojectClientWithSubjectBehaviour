@@ -162,7 +162,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.timelineDataStorageService.changeselectEnd(this.selectEnd)
   }
   changefilteredtimelines() {
-    this.timelineDataStorageService.changefilteredtimelines(this.tidslinjerList)
+    this.timelineDataStorageService.changefilteredtimelines(this.filteredtimelines)
   }
 
   async filterListByTime(start: number, end: number, percent: Number) {
