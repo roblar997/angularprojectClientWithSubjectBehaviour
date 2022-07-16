@@ -75,7 +75,7 @@ export class timelineDataStorageService {
     });
   }
 
-  filteredtimelines = new BehaviorSubject<Array<tidslinje>>([]);
+  filteredtimelines = new ReplaySubject<Array<tidslinje>>(1);
   currentfilteredtimelines = this.filteredtimelines.asObservable();
 
   changefilteredtimelines(filteredtimelines: Array<tidslinje>) {
