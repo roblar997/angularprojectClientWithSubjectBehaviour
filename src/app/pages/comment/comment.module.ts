@@ -15,6 +15,7 @@ import { newTextCommunicationService } from '../../services/newTextCommunication
 import { timelineCommunicationService } from '../../services/timelineCommunicationService';
 import { timelineDataStorageService } from './localServices/timelineDataStorageService';
 import { AppModule } from '../../app.module';
+import { changeCommentModal } from './modal/changeCommentModal';
 
 @NgModule({
 
@@ -33,6 +34,8 @@ import { AppModule } from '../../app.module';
     CommonModule
   ],
   exports: [RouterModule],
-  providers: [ { provide: timelineDataStorageService, useValue: new timelineDataStorageService() }],
+  providers: [{ provide: timelineDataStorageService, useValue: new timelineDataStorageService() }],
+  entryComponents: [changeCommentModal]
+
 })
 export class CommentModule { }

@@ -44,7 +44,6 @@ import { timelineDataStorageService } from './pages/comment/localServices/timeli
 
   ],
   providers: [newTextCommunicationService, timelineCommunicationService],
-  bootstrap: [AppComponent],
-  entryComponents: [changeCommentModal]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

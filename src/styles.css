@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.fade.show {
+  opacity: 1;
+}
+
+.gkz-viewport {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+  .cdk-virtual-scroll-content-wrapper
+
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  height: 19px;
+  border-bottom: 1px dashed #aaa;
+}
+}
