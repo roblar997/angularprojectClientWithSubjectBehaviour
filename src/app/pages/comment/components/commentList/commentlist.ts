@@ -19,9 +19,6 @@ import { of, Subscription } from "rxjs";
 })
 export class commentlistComponent implements OnChanges, OnInit {
 
-  //States
-
-  //States
   selectStart: Number = new Number();
   selectEnd: Number = new Number();
   selectedText: String = new String();
@@ -31,6 +28,7 @@ export class commentlistComponent implements OnChanges, OnInit {
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
   countingList: Array<Number> = new Array<Number>();
+  percent: Number = new Number();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -42,6 +40,7 @@ export class commentlistComponent implements OnChanges, OnInit {
   titleListSubscription: Subscription | undefined;
   currentTitleSubscription: Subscription | undefined;
   countingListSubscription: Subscription | undefined;
+  percentSubscription: Subscription | undefined;
 
   ngOnInit(): void {
 
@@ -54,6 +53,7 @@ export class commentlistComponent implements OnChanges, OnInit {
     this.titleListSubscription = this.timelineDataStorageService.currenttitleList.subscribe(titleList => this.titleList = titleList)
     this.currentTitleSubscription = this.timelineDataStorageService.currentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
     this.countingListSubscription = this.timelineDataStorageService.countingList.subscribe(countingList => this.countingList = countingList)
+    this.percentSubscription = this.timelineDataStorageService.percent.subscribe(percent => this.percent = percent);
   }
   ngOnDestroy() {
     this.selectStartSubscription?.unsubscribe()
@@ -65,6 +65,7 @@ export class commentlistComponent implements OnChanges, OnInit {
     this.titleListSubscription?.unsubscribe()
     this.currentTitleSubscription?.unsubscribe()
     this.countingListSubscription?.unsubscribe()
+    this.percentSubscription?.unsubscribe()
   }
 
   constructor(private cdref: ChangeDetectorRef, private modalService: NgbModal, private newTextCommunicationService: newTextCommunicationService,

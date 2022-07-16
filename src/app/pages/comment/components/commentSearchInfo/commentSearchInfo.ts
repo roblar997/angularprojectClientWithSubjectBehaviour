@@ -24,6 +24,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
   countingList: Array<Number> = new Array<Number>();
+  percent: Number = new Number();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -35,6 +36,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   titleListSubscription: Subscription | undefined;
   currentTitleSubscription: Subscription | undefined;
   countingListSubscription: Subscription | undefined;
+  percentSubscription: Subscription | undefined;
 
   ngOnInit(): void {
 
@@ -47,6 +49,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.titleListSubscription = this.timelineDataStorageService.currenttitleList.subscribe(titleList => this.titleList = titleList)
     this.currentTitleSubscription = this.timelineDataStorageService.currentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
     this.countingListSubscription = this.timelineDataStorageService.countingList.subscribe(countingList => this.countingList = countingList)
+    this.percentSubscription = this.timelineDataStorageService.percent.subscribe(percent => this.percent = percent);
   }
   ngOnDestroy() {
     this.selectStartSubscription?.unsubscribe()
@@ -58,6 +61,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.titleListSubscription?.unsubscribe()
     this.currentTitleSubscription?.unsubscribe()
     this.countingListSubscription?.unsubscribe()
+    this.percentSubscription?.unsubscribe()
   }
 
 
@@ -105,12 +109,12 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
       else if (property == "commandTidslinjeWrapper") {
         console.log("change in command line");
         //this.doChange();
-        this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value.valueOf());
-        this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
-        this.dislikes = await  this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
+
+        this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
+        this.dislikes = await  this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
 
         //Recalculate counting list
-      //  this.countingList = of(await this.currentFenwick.getCountingList(0, this.currentTitle.text.length));
+      // 
 
         //Send notification to parrent, such that one can broadcast this info to other childs
         this.changefilteredtimelines();
@@ -131,24 +135,27 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
 
   //ID'S in HTML
   @ViewChild("textToComment") textToComment!: ElementRef;
-  @ViewChild("percent") percent!: ElementRef;
+  @ViewChild("percentEle") percentEle!: ElementRef;
   
   async captureSelected() {
     
     this.selectStart = this.textToComment.nativeElement.selectionStart;
     this.selectEnd = this.textToComment.nativeElement.selectionEnd;
     console.log("Following area is selected (start,end): (" + this.selectStart + "," + this.selectEnd + ")")
-    console.log("Percent picked up is:" + this.percent.nativeElement.value)
+    console.log("Percent picked up is:" + this.percentEle.nativeElement.value)
 
-    this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value.valueOf());
-    this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
-    this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
+    this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value.valueOf());
+    this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
+    this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
+    this.percent = this.percentEle.nativeElement.value.valueOf();
 
     //Send notification to parrent, such that one can broadcast this info to other childs
     this.changeSelectstart();
     this.changeselectend();
+    this.changepercent();
     this.changefilteredtimelines();
   }
+
 
   changeSelectstart() {
     this.timelineDataStorageService.changeselectStart(this.selectStart)
@@ -170,18 +177,22 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     })
     
   }
-
+  changepercent() {
+    this.timelineDataStorageService.changepercent(this.percent)
+  }
  
   changetidslinjerList() {
     this.timelineDataStorageService.changetidslinjerList(this.tidslinjerList)
   }
 
   async percentChange() {
-    console.log("Percent changed to:" + this.percent.nativeElement.value)
-    this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
-    this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
-    this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
+    console.log("Percent changed to:" + this.percentEle.nativeElement.value)
+    this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
+    this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
+    this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
+    this.changepercent();
     this.changefilteredTimelines();
+    
  
   }
   changefilteredTimelines() {

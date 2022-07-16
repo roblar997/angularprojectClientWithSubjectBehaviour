@@ -17,6 +17,8 @@ export class commentSchemaComponent implements  OnInit {
   //States
 
   //States
+
+  //States
   selectStart: Number = new Number();
   selectEnd: Number = new Number();
   selectedText: String = new String();
@@ -26,6 +28,7 @@ export class commentSchemaComponent implements  OnInit {
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
   countingList: Array<Number> = new Array<Number>();
+  percent: Number = new Number();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -37,6 +40,7 @@ export class commentSchemaComponent implements  OnInit {
   titleListSubscription: Subscription | undefined;
   currentTitleSubscription: Subscription | undefined;
   countingListSubscription: Subscription | undefined;
+  percentSubscription: Subscription | undefined;
 
   ngOnInit(): void {
 
@@ -49,6 +53,7 @@ export class commentSchemaComponent implements  OnInit {
     this.titleListSubscription = this.timelineDataStorageService.currenttitleList.subscribe(titleList => this.titleList = titleList)
     this.currentTitleSubscription = this.timelineDataStorageService.currentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
     this.countingListSubscription = this.timelineDataStorageService.countingList.subscribe(countingList => this.countingList = countingList)
+    this.percentSubscription = this.timelineDataStorageService.percent.subscribe(percent => this.percent = percent);
   }
   ngOnDestroy() {
     this.selectStartSubscription?.unsubscribe()
@@ -60,7 +65,9 @@ export class commentSchemaComponent implements  OnInit {
     this.titleListSubscription?.unsubscribe()
     this.currentTitleSubscription?.unsubscribe()
     this.countingListSubscription?.unsubscribe()
+    this.percentSubscription?.unsubscribe()
   }
+
   commentSchema: FormGroup;
   constructor(
     private cdref: ChangeDetectorRef, private fb: FormBuilder,private newTextCommunicationService: newTextCommunicationService,

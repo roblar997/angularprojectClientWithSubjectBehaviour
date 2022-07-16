@@ -23,11 +23,11 @@
     </div>
 
     <p class="h3" style="margin-top: 10px">Search for comments by marking text </p>
-    <label for="percent">
+    <label for="percentEle">
       <strong>Percent(%) </strong>: Adjust this value to capture more comments inside.<br>
       100% requires full match of comment. Lesser values capture smaller <br> comments inside area
     </label>
-    <input class="form-control input-sm w-25 " type="number" (change)="percentChange()" #percent value="100"/>
+    <input class="form-control input-sm w-25 " type="number" (change)="percentChange()" #percentEle value="100"/>
     <p>
       <label for="likes">Likes <i class="fa fa-thumbs-up" aria-hidden="true"><strong> {{likes}} </strong></i></label>
 

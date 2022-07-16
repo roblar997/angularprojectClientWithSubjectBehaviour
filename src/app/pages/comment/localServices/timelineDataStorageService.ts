@@ -94,6 +94,13 @@ export class timelineDataStorageService {
   changecurrentTitle(currentTitle: title) {
     this.currentTitle.next(currentTitle)
   }
+
+  percent = new BehaviorSubject<Number>(100);
+  currentpercent = this.percent.asObservable();
+
+  changepercent(percent: Number) {
+    this.percent.next(percent)
+  }
   doChange() {
     let nytidslinjeListe: tidslinje[] = this.tidslinjerList.getValue();
 
@@ -135,5 +142,19 @@ export class timelineDataStorageService {
     })
     //change to a updated version
     this.changetidslinjerList(nytidslinjeListe);
+
+
+    let nyFiltered: tidslinje[] = this.filterListByTime(this.selectStart.getValue().valueOf(), this.selectEnd.getValue().valueOf(), this.percent.getValue().valueOf());
+    this.filteredtimelines.next(nyFiltered);
+  }
+   filterListByTime(start: number, end: number, percent: Number) {
+    return this.tidslinjerList.getValue().filter((x) => {
+
+      if (x.start && x.end)
+        return x.start.valueOf() >= start && x.end.valueOf() <= end && ((x.start.valueOf() - x.end.valueOf()) / (start - end)) * 100 >= percent;
+      else
+        return false;
+    })
+
   }
 }
