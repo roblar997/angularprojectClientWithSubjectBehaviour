@@ -115,7 +115,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
       // 
 
         //Send notification to parrent, such that one can broadcast this info to other childs
-        this.changefilteredtimelines();
+   
       }
  
        
