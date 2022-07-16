@@ -14,8 +14,8 @@ import { timelineDataStorageService } from "../../../comment/localServices/timel
 })
 export class commentSearchInfoComponent implements OnChanges, OnInit{
 
-  selectStart: Number = new Number();
-  selectEnd: Number = new Number();
+  selectStart: Number = 0;
+  selectEnd: Number = 0;
   selectedText: String = new String();
   commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
   tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
@@ -23,7 +23,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
   countingList: Array<Number> = new Array<Number>();
-  percent: Number = new Number();
+  percent: Number = 100;
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -151,6 +151,12 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.changeSelectstart();
     this.changeselectend();
     this.changepercent();
+
+    //TO jump over the bug
+    this.changeSelectstart();
+    this.changeselectend();
+    this.changepercent();
+
     this.changefilteredtimelines();
   }
 

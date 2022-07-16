@@ -82,6 +82,7 @@ export class commentlistComponent implements OnChanges, OnInit {
       //this.doChange(res2);
       this.commandTidslinjeWrapper = res2;
       this.changeCommandTidslinjeWrapper();
+      this.timelineDataStorageService.doChange();
       return;
 
 
