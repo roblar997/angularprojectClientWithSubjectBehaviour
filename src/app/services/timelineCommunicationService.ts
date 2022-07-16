@@ -66,8 +66,8 @@ export class timelineCommunicationService {
     //  return of([{ "command": "CHANGE", "tidslinje": testTidslinje }]).pipe((res => { this.timestamp = new Date().valueOf(); return res; }));
     //}
 
-    return this.http.post<tidslinjeCommandWrapper[]>(this.baseURL, data, { 'headers': headers }).pipe((res => { this.timestamp = new Date().valueOf(); return res; }));;
-   // return of([{ "command": "REMOVE", "tidslinje": { "id": 65, "user": "RR", "timestampCreated": 1657545938272, "timestampChanged": 1657545938272, "start": 0, "end": 10, "text": "RRR", "like": true, "dislike": false, "isdeleted": false, "texttocommentid": 1 } }]).pipe((res => { this.timestamp = new Date().valueOf(); return res; }));
+    //return this.http.post<tidslinjeCommandWrapper[]>(this.baseURL, data, { 'headers': headers }).pipe((res => { this.timestamp = new Date().valueOf(); return res; }));;
+   return of([{ "command": "REMOVE", "tidslinje": { "id": 65, "user": "RR", "timestampCreated": 1657545938272, "timestampChanged": 1657545938272, "start": 0, "end": 10, "text": "RRR", "like": true, "dislike": false, "isdeleted": false, "texttocommentid": 1 } }]).pipe((res => { this.timestamp = new Date().valueOf(); return res; }));
   }
 
 }

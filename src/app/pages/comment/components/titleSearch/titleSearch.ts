@@ -61,7 +61,6 @@ export class titleSearchComponent implements  OnInit {
     this.currentTitleSubscription?.unsubscribe()
   }
 
-
   changeselectStart() {
     this.timelineDataStorageService.changeselectStart(this.selectStart)
   }

@@ -20,14 +20,14 @@ import { of, Subscription } from "rxjs";
 export class commentlistComponent implements OnChanges, OnInit {
 
   //States
-  selectStart: Number = new Number();
-  selectEnd: Number = new Number();
-  selectedText: String = new String();
-  commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
-  tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
-  filteredtimelines: Array<tidslinje> = Array<tidslinje>()
-  titleList: Array<String> = new Array<String>()
-  currentTitle: title = new title();
+   selectStart: Number = new Number();
+   selectEnd: Number = new Number();
+   selectedText: String = new String();
+   commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
+   tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
+   filteredtimelines: Array<tidslinje> = Array<tidslinje>()
+   titleList: Array<String> = new Array<String>()
+   currentTitle: title = new title();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -163,6 +163,7 @@ export class commentlistComponent implements OnChanges, OnInit {
         //this.doChange(res2);
         this.commandTidslinjeWrapper = res2;
         this.changeCommandTidslinjeWrapper();
+        this.timelineDataStorageService.doChange();
         return;
 
 
@@ -179,6 +180,7 @@ export class commentlistComponent implements OnChanges, OnInit {
       this.timelineCommunicationService.getPChanges(this.currentTitle.id).subscribe((res2) => {
         this.commandTidslinjeWrapper = res2;
         this.changeCommandTidslinjeWrapper();
+        this.timelineDataStorageService.doChange();
         return;
 
 

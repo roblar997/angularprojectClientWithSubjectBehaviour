@@ -114,7 +114,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
 
       else if (property == "commandTidslinjeWrapper") {
         console.log("change in command line");
-        this.doChange();
+        //this.doChange();
         this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value.valueOf());
         this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
         this.dislikes = await  this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percent.nativeElement.value);
@@ -181,47 +181,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     
   }
 
-  async doChange() {
-    this.commandTidslinjeWrapper.forEach((commandtidslinjen) => {
-
-
-      console.log("Got command " + commandtidslinjen.command + " with timeline:" + JSON.stringify(commandtidslinjen.tidslinje))
-      if (String(commandtidslinjen.command) == "ADD") {
-
-        this.tidslinjerList.push(JSON.parse(JSON.stringify(commandtidslinjen.tidslinje)));
-        if (commandtidslinjen.tidslinje && commandtidslinjen.tidslinje.start && commandtidslinjen.tidslinje.end)
-          this.currentFenwick.addTimeline(commandtidslinjen.tidslinje.start.valueOf(), commandtidslinjen.tidslinje.end.valueOf())
-        console.log("State of tidslinje array: " + JSON.stringify(this.tidslinjerList));
-        //Notify change to parrent, such that everyone now that we have a new tidslinje
-
-
-      }
-      else if (String(commandtidslinjen.command) == "CHANGE") {
-
-
-        let index = this.tidslinjerList.findIndex((x) => { return x.id == commandtidslinjen.tidslinje.id })
-        this.tidslinjerList.splice(index, 1, commandtidslinjen.tidslinje)
-
-        console.log("State of tidslinje array: " + JSON.stringify(this.tidslinjerList));
-
-      }
-      else if (String(commandtidslinjen.command) == "REMOVE") {
-        let index = this.tidslinjerList.findIndex((x) => { return x.id == commandtidslinjen.tidslinje.id })
-        this.tidslinjerList.splice(index, 1)
-
-        if (commandtidslinjen.tidslinje && commandtidslinjen.tidslinje.start && commandtidslinjen.tidslinje.end)
-          this.currentFenwick.removeTimeline(commandtidslinjen.tidslinje.start.valueOf(), commandtidslinjen.tidslinje.end.valueOf())
-
-
-
-      }
-
-    })
-    if (this.commandTidslinjeWrapper != [])
-      this.changetidslinjerList();
-
-
-  };
+ 
   changetidslinjerList() {
     this.timelineDataStorageService.changetidslinjerList(this.tidslinjerList)
   }

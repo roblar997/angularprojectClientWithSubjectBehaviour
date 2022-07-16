@@ -88,6 +88,7 @@ export class commentSchemaComponent implements  OnInit {
           this.timelineCommunicationService.getPChanges(this.currentTitle.id).subscribe((res2) => {
         this.commandTidslinjeWrapper = res2;
             this.changeCommandTidslinjeWrapper();
+            this.timelineDataStorageService.doChange();
         return;
 
 
