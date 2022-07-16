@@ -102,7 +102,7 @@ export class timelineDataStorageService {
     this.percent.next(percent)
   }
   doChange() {
-    let nytidslinjeListe: tidslinje[] = this.tidslinjerList.getValue();
+    let nytidslinjeListe: tidslinje[] = JSON.parse(JSON.stringify(this.tidslinjerList.getValue()));
 
     this.commandTidslinjeWrapper.getValue().forEach((commandtidslinjen) => {
 
@@ -110,7 +110,8 @@ export class timelineDataStorageService {
       //  console.log("Got command " + commandtidslinjen.command + " with timeline:" + JSON.stringify(commandtidslinjen.tidslinje))
       if (String(commandtidslinjen.command) == "ADD") {
         console.log("Supposed to do changes to timelines here. ADD ")
-        nytidslinjeListe.push(JSON.parse(JSON.stringify(commandtidslinjen.tidslinje)));
+        let tidslinjen: tidslinje = JSON.parse(JSON.stringify(commandtidslinjen.tidslinje));
+        nytidslinjeListe.push(tidslinjen);
         if (commandtidslinjen.tidslinje && commandtidslinjen.tidslinje.start && commandtidslinjen.tidslinje.end)
           this.currentFenwick.addTimeline(commandtidslinjen.tidslinje.start.valueOf(), commandtidslinjen.tidslinje.end.valueOf())
   
