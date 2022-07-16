@@ -115,7 +115,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
       // 
 
         //Send notification to parrent, such that one can broadcast this info to other childs
-        this.changefilteredtimelines();
+
       }
  
        
@@ -142,7 +142,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     console.log("Following area is selected (start,end): (" + this.selectStart + "," + this.selectEnd + ")")
     console.log("Percent picked up is:" + this.percentEle.nativeElement.value)
 
-    this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value.valueOf());
+    let filteredtimelines : tidslinje[] = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value.valueOf());
     this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
     this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
     this.percent = this.percentEle.nativeElement.value.valueOf();
@@ -152,12 +152,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.changeselectend();
     this.changepercent();
 
-    //TO jump over the bug
-    this.changeSelectstart();
-    this.changeselectend();
-    this.changepercent();
-
-    this.changefilteredtimelines();
+    this.changefilteredtimelines(filteredtimelines);
   }
 
 
@@ -167,8 +162,8 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   changeselectend() {
     this.timelineDataStorageService.changeselectEnd(this.selectEnd)
   }
-  changefilteredtimelines() {
-    this.timelineDataStorageService.changefilteredtimelines(this.filteredtimelines)
+  changefilteredtimelines(filteredtimelines : tidslinje[]) {
+    this.timelineDataStorageService.changefilteredtimelines(filteredtimelines)
   }
 
   async filterListByTime(start: number, end: number, percent: Number) {
