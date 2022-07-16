@@ -74,14 +74,14 @@ export class timelineDataStorageService {
     });
   }
 
-  filteredtimelines = new ReplaySubject<Array<tidslinje>>(1);
+  filteredtimelines = new BehaviorSubject<Array<tidslinje>>([]);
   currentfilteredtimelines = this.filteredtimelines.asObservable();
 
   changefilteredtimelines(filteredtimelines: Array<tidslinje>) {
     this.filteredtimelines.next(filteredtimelines);
   }
 
-  titleList = new ReplaySubject<Array<String>>(1);
+  titleList = new BehaviorSubject<Array<String>>([]);
   currenttitleList = this.titleList.asObservable();
 
   changetitleList(titleList: Array<String>) {
