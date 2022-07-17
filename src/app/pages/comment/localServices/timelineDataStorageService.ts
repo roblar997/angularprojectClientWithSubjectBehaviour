@@ -22,6 +22,20 @@ export class timelineDataStorageService {
   selectEnd = new BehaviorSubject<Number>(0);
   currentselectEnd = this.selectEnd.asObservable();
 
+  likes = new BehaviorSubject<Number>(0);
+  currentlikes = this.likes.asObservable();
+
+  changelikes(likes: Number) {
+    this.likes.next(likes);
+  }
+
+  dislikes = new BehaviorSubject<Number>(0);
+  currentdislikes = this.dislikes.asObservable();
+
+  changedislikes(dislikes: Number) {
+    this.dislikes.next(dislikes);
+  }
+
   changeselectEnd(selectEnd: Number) {
     this.selectEnd.next(selectEnd)
 
@@ -101,6 +115,10 @@ export class timelineDataStorageService {
 
   changepercent(percent: Number) {
     this.percent.next(percent)
+    let likes: Number = this.countLikes(this.selectStart.getValue().valueOf(), this.selectEnd.getValue().valueOf(), this.percent.getValue());
+    let dislikes: Number = this.countDisLikes(this.selectStart.getValue().valueOf(), this.selectEnd.getValue().valueOf(), this.percent.getValue());
+    this.changelikes(likes);
+    this.changedislikes(dislikes);
   }
   doChange() {
     let nytidslinjeListe: tidslinje[] = JSON.parse(JSON.stringify(this.tidslinjerList.getValue()));
@@ -148,6 +166,27 @@ export class timelineDataStorageService {
 
     let nyFiltered: tidslinje[] = this.filterListByTime(this.selectStart.getValue().valueOf(), this.selectEnd.getValue().valueOf(), this.percent.getValue().valueOf());
     this.filteredtimelines.next(nyFiltered);
+
+    let likes : Number = this.countLikes(this.selectStart.getValue().valueOf(), this.selectEnd.getValue().valueOf(), this.percent.getValue());
+    let dislikes: Number = this.countDisLikes(this.selectStart.getValue().valueOf(), this.selectEnd.getValue().valueOf(), this.percent.getValue());
+    this.changelikes(likes);
+    this.changedislikes(dislikes);
+  }
+   countLikes(start: Number, end: Number, percent: Number) {
+    let timeLinesFilteredTime = this.filterListByTime(start.valueOf(), end.valueOf(), percent.valueOf());
+    return ( timeLinesFilteredTime).reduce((nmbLikes, timeline) => {
+      if (timeline.like) return nmbLikes + 1;
+      else return nmbLikes;
+    }, 0.0)
+  }
+
+
+   countDisLikes(start: Number, end: Number, percent: Number) {
+    let timeLinesFilteredTime = this.filterListByTime(start.valueOf(), end.valueOf(), percent.valueOf());
+    return ( timeLinesFilteredTime).reduce((nmbDisLike, timeline) => {
+      if (timeline.dislike) return nmbDisLike + 1;
+      else return nmbDisLike;
+    }, 0.0)
   }
    filterListByTime(start: number, end: number, percent: Number) {
     return this.tidslinjerList.getValue().filter((x) => {

@@ -14,8 +14,8 @@ import { timelineDataStorageService } from "../../../comment/localServices/timel
 })
 export class commentSearchInfoComponent implements OnChanges, OnInit{
 
-  selectStart: Number = 0;
-  selectEnd: Number = 0;
+  selectStart: Number = new Number();
+  selectEnd: Number = new Number();
   selectedText: String = new String();
   commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
   tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
@@ -23,7 +23,9 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
   countingList: Array<Number> = new Array<Number>();
-  percent: Number = 100;
+  percent: Number = new Number();
+  likes: Number = new Number();
+  dislikes: Number = new Number();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -36,6 +38,8 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   currentTitleSubscription: Subscription | undefined;
   countingListSubscription: Subscription | undefined;
   percentSubscription: Subscription | undefined;
+  likesSubscription: Subscription | undefined;
+  dislikesSubscription: Subscription | undefined;
 
   ngOnInit(): void {
 
@@ -49,6 +53,10 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.currentTitleSubscription = this.timelineDataStorageService.currentcurrentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
     this.countingListSubscription = this.timelineDataStorageService.currentcountlingList.subscribe(countingList => this.countingList = countingList)
     this.percentSubscription = this.timelineDataStorageService.currentpercent.subscribe(percent => this.percent = percent);
+    this.likesSubscription = this.timelineDataStorageService.currentlikes.subscribe(likes => this.likes = likes);
+    this.dislikesSubscription = this.timelineDataStorageService.currentdislikes.subscribe(dislikes => this.dislikes = dislikes);
+
+
   }
   ngOnDestroy() {
     this.selectStartSubscription?.unsubscribe()
@@ -61,8 +69,9 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.currentTitleSubscription?.unsubscribe()
     this.countingListSubscription?.unsubscribe()
     this.percentSubscription?.unsubscribe()
+    this.likesSubscription?.unsubscribe();
+    this.dislikesSubscription?.unsubscribe();
   }
-
 
 
   constructor(
@@ -75,22 +84,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     return index;
   };
 
-  async countLikes(start: Number, end: Number, percent: Number) {
-    let timeLinesFilteredTime = this.filterListByTime(start.valueOf(), end.valueOf(), percent.valueOf());
-    return (await timeLinesFilteredTime).reduce((nmbLikes, timeline) => {
-    if (timeline.like) return nmbLikes + 1;
-    else return nmbLikes;
-  }, 0.0)
-  }
 
-
-  async countDisLikes(start: Number, end: Number, percent: Number) {
-    let timeLinesFilteredTime = this.filterListByTime(start.valueOf(), end.valueOf(), percent.valueOf());
-    return (await timeLinesFilteredTime).reduce((nmbDisLike, timeline) => {
-    if (timeline.dislike) return nmbDisLike + 1;
-    else return nmbDisLike;
-  }, 0.0)
-}
   async ngOnChanges(changes: SimpleChanges) {
 
     for (let property in changes) {
@@ -108,9 +102,6 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
         console.log("change in command line");
         //this.doChange();
 
-        this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
-        this.dislikes = await  this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
-
         //Recalculate counting list
       // 
 
@@ -124,10 +115,6 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   //Get change in start and end of selection of text
   //@Input('selectStart') selectStart: Number = new Number();
   //@Output() selectStartChange: EventEmitter<Number> = new EventEmitter<Number>();
-
-  //Like and dislikes
-  likes = 0;
-  dislikes = 0;
 
 
 
@@ -143,8 +130,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     console.log("Percent picked up is:" + this.percentEle.nativeElement.value)
 
     this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value.valueOf());
-    this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
-    this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
+
     this.percent = this.percentEle.nativeElement.value.valueOf();
 
     //Send notification to parrent, such that one can broadcast this info to other childs
@@ -188,9 +174,9 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     console.log("Percent changed to:" + this.percentEle.nativeElement.value)
     this.percent = this.percentEle.nativeElement.value;
     this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
-    this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
-    this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
+
     this.changepercent();
+
     this.changefilteredtimelines();
     
  

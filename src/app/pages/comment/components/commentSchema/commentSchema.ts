@@ -19,11 +19,13 @@ export class commentSchemaComponent implements  OnInit {
   selectedText: String = new String();
   commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
   tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
-  filteredtimelines: Array<tidslinje> = new Array<tidslinje>()
+  filteredtimelines: Array<tidslinje> = Array<tidslinje>()
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
   countingList: Array<Number> = new Array<Number>();
   percent: Number = new Number();
+  likes: Number = new Number();
+  dislikes: Number = new Number();
 
   //Subscriptions
   selectStartSubscription: Subscription | undefined;
@@ -36,6 +38,8 @@ export class commentSchemaComponent implements  OnInit {
   currentTitleSubscription: Subscription | undefined;
   countingListSubscription: Subscription | undefined;
   percentSubscription: Subscription | undefined;
+  likesSubscription: Subscription | undefined;
+  dislikesSubscription: Subscription | undefined;
 
   ngOnInit(): void {
 
@@ -49,6 +53,10 @@ export class commentSchemaComponent implements  OnInit {
     this.currentTitleSubscription = this.timelineDataStorageService.currentcurrentTitle.subscribe(currentTitle => this.currentTitle = currentTitle)
     this.countingListSubscription = this.timelineDataStorageService.currentcountlingList.subscribe(countingList => this.countingList = countingList)
     this.percentSubscription = this.timelineDataStorageService.currentpercent.subscribe(percent => this.percent = percent);
+    this.likesSubscription = this.timelineDataStorageService.currentlikes.subscribe(likes => this.likes = likes);
+    this.dislikesSubscription = this.timelineDataStorageService.currentdislikes.subscribe(dislikes => this.dislikes = dislikes);
+
+
   }
   ngOnDestroy() {
     this.selectStartSubscription?.unsubscribe()
@@ -61,9 +69,9 @@ export class commentSchemaComponent implements  OnInit {
     this.currentTitleSubscription?.unsubscribe()
     this.countingListSubscription?.unsubscribe()
     this.percentSubscription?.unsubscribe()
+    this.likesSubscription?.unsubscribe();
+    this.dislikesSubscription?.unsubscribe();
   }
-
-
   commentSchema: FormGroup;
   constructor(
     private cdref: ChangeDetectorRef, private fb: FormBuilder,private newTextCommunicationService: newTextCommunicationService,
