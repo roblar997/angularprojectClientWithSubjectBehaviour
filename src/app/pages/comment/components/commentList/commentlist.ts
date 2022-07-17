@@ -17,7 +17,7 @@ import { of, Subscription } from "rxjs";
   templateUrl: "commentlist.html",
 
 })
-export class commentlistComponent implements OnChanges, OnInit {
+export class commentlistComponent implements  OnInit {
 
   selectStart: Number = new Number();
   selectEnd: Number = new Number();
@@ -68,14 +68,11 @@ export class commentlistComponent implements OnChanges, OnInit {
     this.percentSubscription?.unsubscribe()
   }
 
-  constructor(private cdref: ChangeDetectorRef, private modalService: NgbModal, private newTextCommunicationService: newTextCommunicationService,
+  constructor( private modalService: NgbModal, private newTextCommunicationService: newTextCommunicationService,
     private timelineDataStorageService: timelineDataStorageService, private timelineCommunicationService: timelineCommunicationService)  {
 
   }
-  ngAfterViewInit() {
 
-    Promise.resolve().then(() => this.cdref.detectChanges());
-  }
   async refresh() {
 
     this.timelineCommunicationService.getPChanges(this.currentTitle.id).subscribe((res2) => {
@@ -83,21 +80,14 @@ export class commentlistComponent implements OnChanges, OnInit {
       this.commandTidslinjeWrapper = res2;
       this.changeCommandTidslinjeWrapper();
       this.timelineDataStorageService.doChange();
+      //Hent oppdatert verdi fra service
+
+      this.timelineDataStorageService.currenttidslinjerList.subscribe(tidslinjerList => this.tidslinjerList = tidslinjerList)
+      this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
       return;
 
 
     });
-  }
-  doCheck() {
-    console.log("DOING CHANGE")
-  }
-  async ngOnChanges(changes: SimpleChanges) {
-
-    for (let property in changes) {
-
-   
-      
-    }
   }
 
   ishighlighting = false;
@@ -172,6 +162,10 @@ export class commentlistComponent implements OnChanges, OnInit {
         this.commandTidslinjeWrapper = res2;
         this.changeCommandTidslinjeWrapper();
         this.timelineDataStorageService.doChange();
+
+        //Hent oppdatert verdi fra service
+         this.timelineDataStorageService.currenttidslinjerList.subscribe(tidslinjerList => this.tidslinjerList = tidslinjerList)
+         this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
         return;
 
 
@@ -189,6 +183,9 @@ export class commentlistComponent implements OnChanges, OnInit {
         this.commandTidslinjeWrapper = res2;
         this.changeCommandTidslinjeWrapper();
         this.timelineDataStorageService.doChange();
+        //Hent oppdatert verdi fra service
+        this.timelineDataStorageService.currenttidslinjerList.subscribe(tidslinjerList => this.tidslinjerList = tidslinjerList)
+        this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
         return;
 
 

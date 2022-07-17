@@ -153,7 +153,7 @@ export class timelineDataStorageService {
     return this.tidslinjerList.getValue().filter((x) => {
 
       if (x.start && x.end)
-        return x.start.valueOf() >= start && x.end.valueOf() <= end && ((x.start.valueOf() - x.end.valueOf()) / (start - end)) * 100 >= percent;
+        return x.start.valueOf() >= start && x.end.valueOf() <= end && ((x.start.valueOf() - x.end.valueOf()) / (start - end)) * 100 >= percent.valueOf();
       else
         return false;
     })

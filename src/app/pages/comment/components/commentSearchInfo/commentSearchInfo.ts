@@ -142,7 +142,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     console.log("Following area is selected (start,end): (" + this.selectStart + "," + this.selectEnd + ")")
     console.log("Percent picked up is:" + this.percentEle.nativeElement.value)
 
-    let filteredTimeline : tidslinje[] = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value.valueOf());
+    this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value.valueOf());
     this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
     this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
     this.percent = this.percentEle.nativeElement.value.valueOf();
@@ -152,7 +152,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
     this.changeselectend();
     this.changepercent();
 
-    this.changefilteredtimelines(filteredTimeline);
+    this.changefilteredtimelines();
   }
 
 
@@ -162,8 +162,8 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   changeselectend() {
     this.timelineDataStorageService.changeselectEnd(this.selectEnd)
   }
-  changefilteredtimelines(filteredTimeline : tidslinje[]) {
-    this.timelineDataStorageService.changefilteredtimelines(filteredTimeline)
+  changefilteredtimelines() {
+    this.timelineDataStorageService.changefilteredtimelines(this.filteredtimelines)
   }
 
   async filterListByTime(start: number, end: number, percent: Number) {
@@ -186,11 +186,11 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
 
   async percentChange() {
     console.log("Percent changed to:" + this.percentEle.nativeElement.value)
-    let filteredTimeline: tidslinje[] = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
+    this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
     this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
     this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
     this.changepercent();
-    this.changefilteredtimelines(filteredTimeline);
+    this.changefilteredtimelines();
     
  
   }
