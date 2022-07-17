@@ -108,6 +108,9 @@ export class timelineDataStorageService {
 
   changecurrentTitle(currentTitle: title) {
     this.currentTitle.next(currentTitle)
+    this.changedislikes(0);
+    this.changelikes(0);
+
   }
 
   percent = new BehaviorSubject<Number>(100);

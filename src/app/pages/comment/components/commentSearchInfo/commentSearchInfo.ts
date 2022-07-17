@@ -12,7 +12,7 @@ import { timelineDataStorageService } from "../../../comment/localServices/timel
   selector: "commentsearchinfo",
   templateUrl: "commentSearchInfo.html"
 })
-export class commentSearchInfoComponent implements OnChanges, OnInit{
+export class commentSearchInfoComponent implements OnInit{
 
   selectStart: Number = new Number();
   selectEnd: Number = new Number();
@@ -83,38 +83,6 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
   trackByIndex(index: number): number {
     return index;
   };
-
-
-  async ngOnChanges(changes: SimpleChanges) {
-
-    for (let property in changes) {
-       if (property == "tidslinjerList") {
-
-        this.likes = 0
-        this.dislikes = 0
- 
-
-       
-        console.log("Have following counting list: " + this.countingList);
-      }
-
-      else if (property == "commandTidslinjeWrapper") {
-        console.log("change in command line");
-        //this.doChange();
-
-        //Recalculate counting list
-      // 
-
-        //Send notification to parrent, such that one can broadcast this info to other childs
-   
-      }
- 
-       
-    }
-  } 
-  //Get change in start and end of selection of text
-  //@Input('selectStart') selectStart: Number = new Number();
-  //@Output() selectStartChange: EventEmitter<Number> = new EventEmitter<Number>();
 
 
 
