@@ -19,7 +19,7 @@ export class commentSchemaComponent implements  OnInit {
   selectedText: String = new String();
   commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
   tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
-  filteredtimelines: Array<tidslinje> = Array<tidslinje>()
+  filteredtimelines: Array<tidslinje> = new Array<tidslinje>()
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
   countingList: Array<Number> = new Array<Number>();

@@ -24,7 +24,7 @@ export class commentlistComponent implements  OnInit {
   selectedText: String = new String();
   commandTidslinjeWrapper: Array<tidslinjeCommandWrapper> = new Array<tidslinjeCommandWrapper>()
   tidslinjerList: Array<tidslinje> = new Array<tidslinje>()
-  filteredtimelines: Array<tidslinje> = Array<tidslinje>()
+  filteredtimelines: Array<tidslinje> =  Array<tidslinje>()
   titleList: Array<String> = new Array<String>()
   currentTitle: title = new title();
   countingList: Array<Number> = new Array<Number>();
@@ -80,10 +80,7 @@ export class commentlistComponent implements  OnInit {
       this.commandTidslinjeWrapper = res2;
       this.changeCommandTidslinjeWrapper();
       this.timelineDataStorageService.doChange();
-      //Hent oppdatert verdi fra service
-
-      this.timelineDataStorageService.currenttidslinjerList.subscribe(tidslinjerList => this.tidslinjerList = tidslinjerList)
-      this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
+      
       return;
 
 
@@ -163,9 +160,7 @@ export class commentlistComponent implements  OnInit {
         this.changeCommandTidslinjeWrapper();
         this.timelineDataStorageService.doChange();
 
-        //Hent oppdatert verdi fra service
-         this.timelineDataStorageService.currenttidslinjerList.subscribe(tidslinjerList => this.tidslinjerList = tidslinjerList)
-         this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
+       
         return;
 
 
@@ -183,9 +178,7 @@ export class commentlistComponent implements  OnInit {
         this.commandTidslinjeWrapper = res2;
         this.changeCommandTidslinjeWrapper();
         this.timelineDataStorageService.doChange();
-        //Hent oppdatert verdi fra service
-        this.timelineDataStorageService.currenttidslinjerList.subscribe(tidslinjerList => this.tidslinjerList = tidslinjerList)
-        this.timelineDataStorageService.currentfilteredtimelines.subscribe(filteredtimelines => this.filteredtimelines = filteredtimelines)
+
         return;
 
 

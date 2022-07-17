@@ -186,6 +186,7 @@ export class commentSearchInfoComponent implements OnChanges, OnInit{
 
   async percentChange() {
     console.log("Percent changed to:" + this.percentEle.nativeElement.value)
+    this.percent = this.percentEle.nativeElement.value;
     this.filteredtimelines = await this.filterListByTime(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
     this.likes = await this.countLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
     this.dislikes = await this.countDisLikes(this.selectStart.valueOf(), this.selectEnd.valueOf(), this.percentEle.nativeElement.value);
