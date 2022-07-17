@@ -105,7 +105,7 @@ export class commentSearchInfoComponent implements OnInit{
     this.changeSelectstart();
     this.changeselectend();
     this.changepercent();
-
+    //
     this.changefilteredtimelines();
   }
 
